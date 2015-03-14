@@ -28,6 +28,12 @@ completion, add to your vimrc:
 
     set completeopt=preview
 
+If you don't want this completion you can either not use the plugin or add
+the following line to your vimrc:
+
+    let g:VimMailDontUseComplete=1
+
+
 + Quick launch for mail client in ReadOnly mode.
 
 One of Mutt main drawbacks is that you can't access your mailbox while
@@ -61,3 +67,12 @@ You can set the list of allowed langs in your vimrc:
 The default allowed langs are  french, english
 This will work for any filetype as it can be usefull for many other kind of
 files.
+
++ Start at the end of the headers
+If you use the edit_headers option from mutt (which I recommend), you have
+to put your cursor manually at the end of the headers before writing your
+mail. This script will automatically put your cursor at the first empy
+line of the file.
+If you don't like that add the following to your vimrc:
+
+    let g:vimMailStartOnTop=1
