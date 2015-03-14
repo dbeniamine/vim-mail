@@ -1,0 +1,76 @@
+# Readme
+
+## What is this plugin ?
+
+This plugin is a small helper for writing mail from vim, I designed it using
+mutt but it should work with other clients. I recommand to use it in
+combination with [CheckAttach](https://github.com/chrisbra/CheckAttach).
+
+
+## Install
+
+### Quick install
+
+    git clone https://github.com/dbeniamine/vim-mail.git
+    cd todo.txt-vim
+    cp -R * ~/.vim
+
+### Pathogen install
+
+    git clone https://github.com/dbeniamine/vim-mail.git ~/.vim/bundle/vim-mail
+
+## Features
+
+This plugin provides the following features
+
++   Contact completions using [pycarddav](https://pypi.python.org/pypi/pyCardDAV)  
+    In insert mode, type:
+
+        <LocalLeader>a
+
+    or
+
+        <C-X><C-U>
+
+    It will search for the word under the cursor in your contact list.  
+    If you are currently in a From,To,CC or Bcc line, only mail addresses will 
+    be proposed, else all the match will appear.  
+    More details will appear in the preview window including contact name, type
+    of the entry (mail, cell, phone etc.). To enable to preview window on
+    completion, add to your vimrc:
+
+        set completeopt=preview
+
++   Quick launch for mail client in ReadOnly mode.  
+
+    One of Mutt main drawbacks is that you can't access your mailbox while
+    writing mails, good news everyone, with vim-mail you can open mutt in R
+    mode easily by typing
+
+        <LocalLeader>M
+
+    Moreover you can set the mail client command to your launcher script by
+    adding to your vimrc something like:
+
+        let g:VimMailClient="/path/to/your/launcher"
+
++   Easy spelllang switch
+    While writting mails, I often need to do switch the spell lang which can be
+    annoying, so this plugin provide an easy way to do it.  
+    Just type
+
+        <LocalLeader>l
+
+    and the plugin will switch the spelllang using a list of allowed languages.  
+    If the current spellang is the last allowed, it will disable spell, hit
+
+        <LocalLeader>l
+
+    once more and you will restart with the first lang.  
+    You can set the list of allowed langs in your vimrc:
+
+        let g:VimSpellLangs=['fr', 'en', 'sp']
+
+    The default allowed langs are  french, english
+    This will work for any filetype as it can be usefull for many other kind of
+    files.
