@@ -117,6 +117,14 @@ mail using the following commands:
 
 +   **Conversation**
 
+    Go to the first line (after headers):
+
+    <LocalLeader>B
+
+    Go to the first line after the conversation:
+
+    <LocalLeader>E
+
     Go to the first message of the conversation:
 
         <LocalLeader>r
