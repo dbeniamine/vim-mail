@@ -3,7 +3,7 @@
 " Author:      David Beniamine <David@Beniamine.net>
 " License:     Vim license
 " Website:     http://github.com/dbeniamine/vim-mail.vim
-" Version:     0.2
+" Version:     0.2.1
 
 "Don't load twice
 if exists("g:loaded_VimMail")
@@ -21,6 +21,11 @@ set cpo&vim
 " Go at the end of the headers
 if(!exists("g:VimMailStartOnTop"))
     au BufWinEnter *mutt-* call VimMailGoto('^$','I')
+endif
+
+" Set fold method
+if(!exists("g:VimMailDoNotFold"))
+    setlocal foldexpr=VimMaiFoldLevel() foldmethod=expr
 endif
 
 "
@@ -176,6 +181,16 @@ function! VimMailGoto(pattern,post)
     execute "/".a:pattern
     execute "normal ".a:post
 endfunction;
+
+" Fold Method
+function! VimMaiFoldLevel()
+    let l:line = matchstr(getline(v:lnum),'^>[> ]*')
+    if !empty(l:line)
+        return len(substitute(l:line,' ',"","g"))
+    else
+        return 0
+    endif
+endfunction
 
 " Restore context
 let &cpo = s:save_cpo

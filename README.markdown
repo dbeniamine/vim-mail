@@ -84,6 +84,15 @@ the following line to your vimrc:
 
         let g:VimMailStartOnTop=1
 
++   Messages folds
+
+    A folding method which allows you to open are close the messages of the
+    conversation is provided.
+
+    If you do not want to use it, add the following line to your vimrc:
+
+        let g:VimMailDoNotFold=1
+
 ### Quick in-mail navigation
 
 With this plugin, you can easily navigate through the different par of the

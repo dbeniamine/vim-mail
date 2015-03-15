@@ -3,7 +3,7 @@
 " Author:      David Beniamine <David@Beniamine.net>
 " License:     Vim license
 " Website:     http://github.com/dbeniamine/vim-mail.vim
-" Version:     0.2
+" Version:     0.1
 
 "Don't load twice
 if exists("g:loaded_VimMail")
