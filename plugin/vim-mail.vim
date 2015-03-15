@@ -3,20 +3,37 @@
 " Author:      David Beniamine <David@Beniamine.net>
 " License:     Vim license
 " Website:     http://github.com/dbeniamine/vim-mail.vim
-" Version:     0.1
+" Version:     0.2
 
+"Don't load twice
+if exists("g:loaded_VimMail")
+    finish
+endif
+" Save context
 let s:save_cpo = &cpo
 set cpo&vim
+
+"
+" Configuration
+"
+
+if(!exists("g:VimMailSpellLangs"))
+    let g:VimMailSpellLangs=['fr','en']
+endif
+
+
+"
+" Mappings
+"
 
 " Toggle spelllang
 if !hasmapto("<LocalLeader>l",'n')
     noremap <LocalLeader>l :call SwitchSpellLangs()<CR>
 endif
 
-if(!exists("g:VimMailSpellLangs"))
-    let g:VimMailSpellLangs=['fr','en']
-endif
-
+"
+" Functions
+"
 
 " Switch between spellangs
 function! SwitchSpellLangs()
@@ -37,4 +54,5 @@ function! SwitchSpellLangs()
     let &spelllang=l:nlang
 endfunction
 
+" Restore context
 let &cpo = s:save_cpo

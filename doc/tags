@@ -1,2 +1,6 @@
+VimMail-commands	vim-mail.txt	/*VimMail-commands*
+VimMail-conffiguration	vim-mail.txt	/*VimMail-conffiguration*
 VimMail-features	vim-mail.txt	/*VimMail-features*
 VimMail.txt	vim-mail.txt	/*VimMail.txt*
+completeopt	vim-mail.txt	/*completeopt*
+preview	vim-mail.txt	/*preview*

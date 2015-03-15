@@ -23,7 +23,8 @@ combination with [CheckAttach](https://github.com/chrisbra/CheckAttach).
 
 This plugin provides the following features
 
-+   Contact completions using [pycarddav](https://pypi.python.org/pypi/pyCardDAV)  
++   Contact completions using [pycarddav](https://pypi.python.org/pypi/pyCardDAV)
+
     In insert mode, type:
 
         <LocalLeader>a
@@ -32,12 +33,12 @@ This plugin provides the following features
 
         <C-X><C-U>
 
-    It will search for the word under the cursor in your contact list.  
-    If you are currently in a From,To,CC or Bcc line, only mail addresses will 
-    be proposed, else all the match will appear.  
-    More details will appear in the preview window including contact name, type
-    of the entry (mail, cell, phone etc.). To enable to preview window on
-    completion, add to your vimrc:
+    It will search for the word under the cursor in your contact list.
+
+    If you are currently in a From,To,CC or Bcc line, only mail addresses will
+    be proposed, else all the match will appear. More details will appear in
+    the preview window including contact name, type of the entry (mail, cell,
+    phone etc.). To enable to preview window on completion, add to your vimrc:
 
         set completeopt=preview
 
@@ -46,7 +47,7 @@ This plugin provides the following features
 
         let g:VimMailDontUseComplete=1
 
-+   Quick launch for mail client in ReadOnly mode.  
++   Quick launch for mail client in ReadOnly mode.
 
     One of Mutt main drawbacks is that you can't access your mailbox while
     writing mails, good news everyone, with vim-mail you can open mutt in R
@@ -60,9 +61,9 @@ This plugin provides the following features
         let g:VimMailClient="/path/to/your/launcher"
 
 +   Easy spelllang switch
+
     While writting mails, I often need to do switch the spell lang which can be
-    annoying, so this plugin provide an easy way to do it.  
-    Just type
+    annoying, so this plugin provide an easy way to do it. Just type:
 
         <LocalLeader>l
 
@@ -71,7 +72,7 @@ This plugin provides the following features
 
         <LocalLeader>l
 
-    once more and you will restart with the first lang.  
+    once more and you will restart with the first lang.
     You can set the list of allowed langs in your vimrc:
 
         let g:VimSpellLangs=['fr', 'en', 'sp']
@@ -80,11 +81,64 @@ This plugin provides the following features
     This will work for any filetype as it can be usefull for many other kind of
     files.
 
-+   Start at the end of the headers  
++   Quick Access to different parts of the mail
+
+    With this plugin, you can easily navigate through the different par of the
+    mail using the following commands:
+
+    Go to the From field:
+
+        <LocalLeader>f
+
+    Go to the Bcc field:
+
+        <LocalLeader>b
+
+    Go to the Cc field:
+
+        <LocalLeader>c
+
+    Go to the SUbject field:
+
+        <LocalLeader>s
+
+    Go to the Reply-To field:
+
+        <LocalLeader>R
+
+    Go to the Reply-To field:
+
+        <LocalLeader>t
+
+    Go to the first message of the conversation:
+
+        <LocalLeader>r
+
+    Go to the second message of the conversation:
+
+        <LocalLeader>r2
+
+    Go to the third message of the conversation:
+
+        <LocalLeader>r3
+
+    Go to the fourth message of the conversation:
+
+        <LocalLeader>r4
+
+    Go to your signature:
+
+        <LocalLeader>S
+
+
+
++   Start at the end of the headers
+
     If you use the edit_headers option from mutt (which I recommend), you have
     to put your cursor manually at the end of the headers before writing your
     mail. This script will automatically put your cursor at the first empy
-    line of the file.  
+    line of the file.
+
     If you don't like that add the following to your vimrc:
 
-        let g:vimMailStartOnTop=1
+        let g:VimMailStartOnTop=1

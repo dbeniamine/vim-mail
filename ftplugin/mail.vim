@@ -3,16 +3,81 @@
 " Author:      David Beniamine <David@Beniamine.net>
 " License:     Vim license
 " Website:     http://github.com/dbeniamine/vim-mail.vim
-" Version:     0.1
+" Version:     0.2
 
+"Don't load twice
+if exists("g:loaded_VimMail")
+    finish
+endif
+let g:loaded_VimMail=1
+" Save context
 let s:save_cpo = &cpo
 set cpo&vim
+
+"
+" Configuration
+"
+
+" Go at the end of the headers
+if(!exists("g:VimMailStartOnTop"))
+    au BufWinEnter *mutt-* call VimMailGoto('^$')
+endif
+
+"
+" Mappings
+"
 
 " Start mutt in RO mode
 if !hasmapto("<LocalLeader>M","n")
     map <LocalLeader>M  :call VimMailStartClientRO() <CR>
 endif
 
+" Go to different parts of the mail
+if !hasmapto("<LocalLeader>f","n")
+    map <LocalLeader>f :call VimMailGoto('^From') <CR>
+endif
+
+if !hasmapto("<LocalLeader>b","n")
+    map <LocalLeader>b :call VimMailGoto('^Bcc') <CR>
+endif
+
+if !hasmapto("<LocalLeader>c","n")
+    map <LocalLeader>c :call VimMailGoto('^Cc') <CR>
+endif
+
+if !hasmapto("<LocalLeader>s","n")
+    map <LocalLeader>s :call VimMailGoto('^Subject') <CR>
+endif
+
+if !hasmapto("<LocalLeader>R","n")
+    map <LocalLeader>R :call VimMailGoto('^Reply-To') <CR>
+endif
+
+if !hasmapto("<LocalLeader>t","n")
+    map <LocalLeader>t :call VimMailGoto('^To') <CR>
+endif
+
+if !hasmapto("<LocalLeader>r","n")
+    map <LocalLeader>r :call VimMailGoto('^>') <CR>
+endif
+
+if !hasmapto("<LocalLeader>r2","n")
+    map <LocalLeader>r2 :call VimMailGoto('^>\s*>') <CR>
+endif
+
+if !hasmapto("<LocalLeader>r3","n")
+    map <LocalLeader>r3 :call VimMailGoto('^>\s*>\s*>') <CR>
+endif
+
+if !hasmapto("<LocalLeader>r4","n")
+    map <LocalLeader>r4 :call VimMailGoto('^>\s*>\s*>\s*>') <CR>
+endif
+
+if !hasmapto("<LocalLeader>S", "n")
+    map <LocalLeader>S :call VimMailGoto('^-- ') <CR>
+endif
+
+" pc_query completion
 if(!exists("g:VimMailDontUseComplete"))
     if !hasmapto("<LocalLeader>a","i")
         imap <localLeader>a <C-X><C-U>
@@ -21,11 +86,12 @@ if(!exists("g:VimMailDontUseComplete"))
     set completefunc=CompleteAddr
 endif
 
-" Go at the end of the headers
-if(!exists("g:VimMailStartOnTop"))
-    au BufWinEnter *mutt-* call VimMailGotoStart()
-endif
 
+"
+" Functions
+"
+
+" Start the mail client in RO mode
 function! VimMailStartClientRO()
     if (!exists("g:VimMailClient"))
         let g:VimMailClient="xterm -e  \"mutt -R\""
@@ -95,9 +161,12 @@ function! CompleteAddr(findstart, base)
     endif
 endfunction
 
-" Go after the headers
-function! VimMailGotoStart()
-    /^$
+" Go to a part of the message
+function! VimMailGoto(pattern)
+    normal gg
+    execute "/".a:pattern
+    normal A
 endfunction;
 
+" Restore context
 let &cpo = s:save_cpo
