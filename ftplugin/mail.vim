@@ -3,7 +3,7 @@
 " Author:      David Beniamine <David@Beniamine.net>
 " License:     Vim license
 " Website:     http://github.com/dbeniamine/vim-mail.vim
-" Version:     0.2.1
+" Version:     0.2.2
 
 "Don't load twice
 if exists("g:loaded_VimMail")
@@ -27,6 +27,7 @@ endif
 if(!exists("g:VimMailDoNotFold"))
     setlocal foldexpr=VimMaiFoldLevel() foldmethod=expr
 endif
+
 
 "
 " Mappings
@@ -96,7 +97,16 @@ if(!exists("g:VimMailDontUseComplete"))
     if !hasmapto("<LocalLeader>a","i")
         imap <localLeader>a <C-X><C-U>
     endif
-    " Completion based on pc_query
+    if(!exists("g:VimMailContactSyncCmd"))
+        let g:VimMailContactSyncCmd="pycardsyncer"
+    endif
+    if(!exists("g:VimMailContactQueryCmd"))
+        let g:VimMailContactQueryCmd="pc_query"
+    endif
+    if !hasmapto("<LocalLeader>a","n")
+        nmap <localLeader>a :execute ":! ".g:VimMailContactSyncCmd<CR>
+    endif
+    " Contact completion
     set completefunc=CompleteAddr
 endif
 
@@ -113,7 +123,7 @@ function! VimMailStartClientRO()
     execute ":! ".g:VimMailClient
 endfunction
 
-" Complete function using pc_query
+" Complete function using
 " If we are on a header field provides only mail information
 " Else provides each fields contains in the matched vcards
 function! CompleteAddr(findstart, base)
@@ -140,7 +150,7 @@ function! CompleteAddr(findstart, base)
         endif
         let l:records=[]
         " Do the query
-        let l:query=system("pc_query ".a:base."|".l:grep)
+        let l:query=system(g:VimMailContactQueryCmd." ".a:base."|".l:grep)
         for line in split(l:query, '\n')
             "Recover the name
             if line=~ "Name"

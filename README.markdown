@@ -25,8 +25,27 @@ This plugin provides the following features
 
 ### Contact completion
 
-You can search your [pycarddav](https://pypi.python.org/pypi/pyCardDAV)
-address book from vim using the following commands:
+The contact completion is designed for
+[pycarddav](https://pypi.python.org/pypi/pyCardDAV), however it is possible to
+use any external tools by setting the following variables:
+
+    let g:VimMailContactSyncCmd="my_synchronisation_cmd"
+    let g:VimMailContactQueryCmd="my_query_cmd"
+
+The only restriction is that the query command should give an output similar
+to pc_query output, aka something like:
+
+    Name: Someone
+    Tel (CELL): 000000000
+    EMAIL : someone@foo.bar
+    Name: Someone else
+    TEL: 0000000
+    EMAIL (Work): Someone.else@work.com
+    EMAIL (Perso): Someone.else@dummyprovider.com
+
+The fields between parentheses are optional.
+
+You can search your  address book from vim using the following commands:
 
 In insert mode, type:
 
@@ -44,6 +63,11 @@ the preview window including contact name, type of the entry (mail, cell,
 phone etc.). To enable to preview window on completion, add to your vimrc:
 
     set completeopt=preview
+
+To synchronise your address book, in normal mode, type:
+
+    <LocalLeader>a
+
 
 If you don't want this completion you can either not use the plugin or add
 the following line to your vimrc:

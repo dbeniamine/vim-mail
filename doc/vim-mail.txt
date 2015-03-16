@@ -10,10 +10,29 @@ Features                                                    *VimMail-features*
 
 This plugin provides the following features
 
-Contact completions
+Contact completion                                       *VimMail-Completion* ~
 
-You can search your [pycarddav](https://pypi.python.org/pypi/pyCardDAV)
-address book from vim using the following commands:
+The contact completion is designed for
+[pycarddav](https://pypi.python.org/pypi/pyCardDAV), however it is possible to
+use any external tools by setting the following variables:
+
+    let g:VimMailContactSyncCmd="my_synchronisation_cmd"
+    let g:VimMailContactQueryCmd="my_query_cmd"
+
+The only restriction is that the query command should give an output similar
+to pc_query output, aka something like:
+
+    Name: Someone
+    Tel (CELL): 000000000
+    EMAIL : someone@foo.bar
+    Name: Someone else
+    TEL: 0000000
+    EMAIL (Work): Someone.else@work.com
+    EMAIL (Perso): Someone.else@dummyprovider.com
+
+The fields between parentheses are optional.
+
+You can search your  address book from vim using the following commands:
 
 In insert mode, type:
 
@@ -32,12 +51,16 @@ phone etc.). To enable to preview window on completion, add to your vimrc:
 
     set completeopt=preview
 
+To synchronise your address book, in normal mode, type:
+
+    <LocalLeader>a
+
 If you don't want this completion you can either not use the plugin or add
 the following line to your vimrc:
 
     let g:VimMailDontUseComplete=1
 
-Redaction
+Redaction                                                 *VimMail-redaction* ~
 
 +   Easy spelllang switch
 
@@ -74,14 +97,14 @@ Redaction
 +   Messages folds
 
     A folding method which allows you to open are close the messages of the
-    conversation is provided. (see *fold* )
+    conversation is provided. (see |fold| )
 
     If you do not want to use it, add the following line to your vimrc:
 
         let g:VimMailDoNotFold=1
 
 
-Quick in-mail navigation
+Quick in-mail navigation                                 *VimMail-navigation* ~
 
 With this plugin, you can easily navigate through the different par of the
 mail using the following commands:
@@ -143,7 +166,7 @@ mail using the following commands:
         <LocalLeader>S
 
 
-Launch mail client
+Launch mail client                                       *VimMail-mailclient* ~
 
 One of Mutt main drawbacks is that you can't access your mailbox while
 writing mails, good news everyone, with vim-mail you can open mutt in RO
@@ -213,10 +236,15 @@ Go to your signature:
     <LocalLeader>S
 
 ==============================================================================
-CONFFIGURATION                                        *VimMail-conffiguration*
+CONFFIGURATION                                        *VimMail-configuration*
+
+To set the synchronise and query contact commands (see |VimMail-Completion|):
+
+    let g:VimMailContactSyncCmd="my_synchronisation_cmd"
+    let g:VimMailContactQueryCmd="my_query_cmd"
 
 If you don't see the preview while using contact completion, add the following
-to your vimrc (see *completeopt* *preview* ):
+to your vimrc (see |completeopt| |preview| ):
 
     set completeopt=preview
 
