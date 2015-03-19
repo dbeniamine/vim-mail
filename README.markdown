@@ -13,7 +13,7 @@ combination with [CheckAttach](https://github.com/chrisbra/CheckAttach).
 
     git clone https://github.com/dbeniamine/vim-mail.git
     cd todo.txt-vim
-    cp -R * ~/.vim
+    cp -r ./* ~/.vim
 
 ### Pathogen install
 
