@@ -5,37 +5,31 @@
 " Website:     http://github.com/dbeniamine/vim-mail.vim
 " Version:     0.1
 
-"Don't load twice
+"Don't load twice {{{1
 if exists("g:loaded_VimMail")
     finish
 endif
-" Save context
+" Save context {{{1
 let s:save_cpo = &cpo
 set cpo&vim
 
-"
-" Configuration
-"
+" Configuration {{{1
 
 if(!exists("g:VimMailSpellLangs"))
     let g:VimMailSpellLangs=['fr','en']
 endif
 
 
-"
-" Mappings
-"
+" Mappings {{{1
 
-" Toggle spelllang
+" Toggle spelllang {{{2
 if !hasmapto("<LocalLeader>l",'n')
     noremap <LocalLeader>l :call SwitchSpellLangs()<CR>
 endif
 
-"
-" Functions
-"
+" Functions {{{1
 
-" Switch between spellangs
+" Switch between spellangs {{{2
 function! SwitchSpellLangs()
     if &spell==0
         let l:index=0
@@ -54,5 +48,5 @@ function! SwitchSpellLangs()
     let &spelllang=l:nlang
 endfunction
 
-" Restore context
+" Restore context {{{1
 let &cpo = s:save_cpo
