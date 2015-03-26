@@ -3,7 +3,7 @@
 ## What is this plugin ?
 
 This plugin is a small helper for writing mail from vim, I designed it using
-mutt but it should work with other clients. I recommand to use it in
+mutt but it should work with other clients. I recommend to use it in
 combination with [CheckAttach](https://github.com/chrisbra/CheckAttach).
 
 
@@ -78,7 +78,7 @@ the following line to your vimrc:
 
 +   **Easy spelllang switch**
 
-    While writting mails, I often need to do switch the spell lang which can be
+    While writing mails, I often need to do switch the spell lang which can be
     annoying, so this plugin provide an easy way to do it. Just type:
 
         <LocalLeader>l
@@ -101,7 +101,7 @@ the following line to your vimrc:
 
     If you use the edit_headers option from mutt (which I recommend), you have
     to put your cursor manually at the end of the headers before writing your
-    mail. This script will automatically put your cursor at the first empy
+    mail. This script will automatically put your cursor at the first empty
     line of the file.
 
     If you don't like that add the following to your vimrc:

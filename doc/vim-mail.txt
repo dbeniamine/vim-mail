@@ -1,7 +1,7 @@
 *VimMail.txt*
 
 This plugin is a small helper for writing mail from vim, I designed it using
-mutt but it should work with other clients. I recommand to use it in
+mutt but it should work with other clients. I recommend to use it in
 combination with [CheckAttach](https://github.com/chrisbra/CheckAttach).
 
 
@@ -87,7 +87,7 @@ Redaction                                                 *VimMail-redaction* ~
 
     If you use the edit_headers option from mutt (which I recommend), you have
     to put your cursor manually at the end of the headers before writing your
-    mail. This script will automatically put your cursor at the first empy
+    mail. This script will automatically put your cursor at the first empty
     line of the file.
 
     If you don't like that add the following to your vimrc:
@@ -236,7 +236,7 @@ Go to your signature:
     <LocalLeader>S
 
 ==============================================================================
-CONFFIGURATION                                        *VimMail-configuration*
+CONFIGURATION                                        *VimMail-configuration*
 
 To set the synchronise and query contact commands (see |VimMail-Completion|):
 
