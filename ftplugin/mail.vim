@@ -19,7 +19,7 @@ set cpo&vim
 
 " Go at the end of the headers {{{2
 if(!exists("g:VimMailStartOnTop"))
-    au BufWinEnter *mutt-* call VimMailGoto('^$','oI')
+    au BufWinEnter *mutt-* call VimMailGoto('^$','o')
 endif
 
 " Set fold method {{{2
