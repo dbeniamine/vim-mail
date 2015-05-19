@@ -92,7 +92,7 @@ endif
 " pc_query completion {{{2
 if(!exists("g:VimMailDontUseComplete"))
     if !hasmapto("<LocalLeader>a","i")
-        imap <localLeader>a <C-X><C-U>
+        imap <localLeader>a <C-X><C-O>
     endif
     if(!exists("g:VimMailContactSyncCmd"))
         let g:VimMailContactSyncCmd="pycardsyncer"
@@ -104,7 +104,7 @@ if(!exists("g:VimMailDontUseComplete"))
         nmap <localLeader>a :execute ":! ".g:VimMailContactSyncCmd<CR>
     endif
     " Contact completion
-    set completefunc=CompleteAddr
+    set omnifunc=CompleteAddr
 endif
 
 
