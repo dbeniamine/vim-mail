@@ -27,7 +27,6 @@ if(!exists("g:VimMailDoNotFold"))
     setlocal foldexpr=VimMaiFoldLevel() foldmethod=expr
 endif
 
-
 " Mappings {{{1
 
 " Start mutt in RO mode {{{2
@@ -175,6 +174,14 @@ function! CompleteAddr(findstart, base)
                 call add(records, item)
             endif
         endfor
+        if(! exists("g:VimMailDoNotAppendQueryToResults"))
+            " Append the query to the records
+            let l:item={}
+            let l:item.word=a:base
+            let l:item.kind='Q'
+            let l:item.info="query: ".a:base
+            call add(records, item)
+        endif
         return records
     endif
 endfunction

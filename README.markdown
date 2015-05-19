@@ -53,7 +53,7 @@ In insert mode, type:
 
 or
 
-    <C-X><C-U>
+    <C-X><C-O>
 
 It will search for the word under the cursor in your contact list.
 
@@ -73,6 +73,11 @@ If you don't want this completion you can either not use the plugin or add
 the following line to your vimrc:
 
     let g:VimMailDontUseComplete=1
+
+By default, the contact completion appends the query to the result list, you
+can disable this feature:
+
+    let g:VimMailDoNotAppendQueryToResults
 
 ### Redaction
 

@@ -40,7 +40,7 @@ In insert mode, type:
 
 or
 
-    <C-X><C-U>
+    <C-X><C-O>
 
 It will search for the word under the cursor in your contact list.
 
@@ -264,3 +264,6 @@ Do not use the provided fold method
 
     let g:VimMailDoNotFold=1
 
+Do not append the query to the search result list
+
+    let g:VimMailDoNotAppendQueryToResults
