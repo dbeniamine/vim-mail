@@ -3,13 +3,13 @@
 " Author:      David Beniamine <David@Beniamine.net>
 " License:     Vim license
 " Website:     http://github.com/dbeniamine/vim-mail.vim
-" Version:     0.2.2
+" Version:     0.2.3
 
 " Don't load twice {{{1
 if exists("g:loaded_VimMail")
     finish
 endif
-let g:loaded_VimMail=1
+let g:loaded_VimMail=0.2.3
 
 " Save context {{{1
 let s:save_cpo = &cpo
