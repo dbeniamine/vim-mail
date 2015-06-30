@@ -139,11 +139,11 @@ mail using the following commands:
 
     Go to the first line (after headers):
 
-    <LocalLeader>B
+        <LocalLeader>B
 
     Go to the first line after the conversation:
 
-    <LocalLeader>E
+        <LocalLeader>E
 
     Go to the first message of the conversation:
 
