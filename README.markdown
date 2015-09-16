@@ -9,15 +9,22 @@ combination with [CheckAttach](https://github.com/chrisbra/CheckAttach).
 
 ## Install
 
+### Vizardry
+
+If you have [Vizardry](https://github.com/dbeniamine/vizardry) installed, you
+can run from vim:
+
+    :Invoke -u dbeniamine vim-mail
+
+### Pathogen install
+
+    git clone https://github.com/dbeniamine/vim-mail.git ~/.vim/bundle/vim-mail
+
 ### Quick install
 
     git clone https://github.com/dbeniamine/vim-mail.git
     cd vim-mail/
     cp -r ./* ~/.vim
-
-### Pathogen install
-
-    git clone https://github.com/dbeniamine/vim-mail.git ~/.vim/bundle/vim-mail
 
 ## Features
 
