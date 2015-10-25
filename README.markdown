@@ -30,6 +30,10 @@ can run from vim:
 
 This plugin provides the following features
 
+All mappings can be disabled by adding the following line to your vimrc:
+
+    let g:VimMailDoNotMap=1
+
 ### Contact completion
 
 The contact completion is designed for

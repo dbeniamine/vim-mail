@@ -30,77 +30,36 @@ endif
 " Mappings {{{1
 
 " Start mutt in RO mode {{{2
-if !hasmapto("<LocalLeader>M","n")
-    map <LocalLeader>M  :call VimMailStartClientRO() <CR>
-endif
+if !exists("g:VimMailDoNotMap")
+    map <silent><LocalLeader>M  :call VimMailStartClientRO() <CR>
 
 " Go to different parts of the mail {{{2
-if !hasmapto("<LocalLeader>f","n")
-    map <LocalLeader>f :call VimMailGoto('^From','A') <CR>
+    map <silent><LocalLeader>f :call VimMailGoto('^From','A') <CR>
+    map <silent><LocalLeader>b :call VimMailGoto('^Bcc','A') <CR>
+    map <silent><LocalLeader>c :call VimMailGoto('^Cc','A') <CR>
+    map <silent><LocalLeader>s :call VimMailGoto('^Subject','A') <CR>
+    map <silent><LocalLeader>R :call VimMailGoto('^Reply-To','A') <CR>
+    map <silent><LocalLeader>t :call VimMailGoto('^To','A') <CR>
+    map <silent><LocalLeader>r :call VimMailGoto('^>','I') <CR>
+    map <silent><LocalLeader>r2 :call VimMailGoto('^>\s*>','I') <CR>
+    map <silent><LocalLeader>r3 :call VimMailGoto('^>\s*>\s*>','I') <CR>
+    map <silent><LocalLeader>r4 :call VimMailGoto('^>\s*>\s*>\s*>','I') <CR>
+    map <silent><LocalLeader>S :call VimMailGoto('^-- ','j') <CR>
+    map <silent><LocalLeader>B :call VimMailGoto('^$','I') <CR>
+    map <silent><LocalLeader>E :call VimMailGoto('^>','Nj') <CR>
 endif
-
-if !hasmapto("<LocalLeader>b","n")
-    map <LocalLeader>b :call VimMailGoto('^Bcc','A') <CR>
-endif
-
-if !hasmapto("<LocalLeader>c","n")
-    map <LocalLeader>c :call VimMailGoto('^Cc','A') <CR>
-endif
-
-if !hasmapto("<LocalLeader>s","n")
-    map <LocalLeader>s :call VimMailGoto('^Subject','A') <CR>
-endif
-
-if !hasmapto("<LocalLeader>R","n")
-    map <LocalLeader>R :call VimMailGoto('^Reply-To','A') <CR>
-endif
-
-if !hasmapto("<LocalLeader>t","n")
-    map <LocalLeader>t :call VimMailGoto('^To','A') <CR>
-endif
-
-if !hasmapto("<LocalLeader>r","n")
-    map <LocalLeader>r :call VimMailGoto('^>','I') <CR>
-endif
-
-if !hasmapto("<LocalLeader>r2","n")
-    map <LocalLeader>r2 :call VimMailGoto('^>\s*>','I') <CR>
-endif
-
-if !hasmapto("<LocalLeader>r3","n")
-    map <LocalLeader>r3 :call VimMailGoto('^>\s*>\s*>','I') <CR>
-endif
-
-if !hasmapto("<LocalLeader>r4","n")
-    map <LocalLeader>r4 :call VimMailGoto('^>\s*>\s*>\s*>','I') <CR>
-endif
-
-if !hasmapto("<LocalLeader>S", "n")
-    map <LocalLeader>S :call VimMailGoto('^-- ','j') <CR>
-endif
-
-if !hasmapto("<LocalLeader>B", "n")
-    map <LocalLeader>B :call VimMailGoto('^$','I') <CR>
-endif
-
-if !hasmapto("<LocalLeader>E", "n")
-    map <LocalLeader>E :call VimMailGoto('^>','Nj') <CR>
-endif
-
 
 " pc_query completion {{{2
 if(!exists("g:VimMailDontUseComplete"))
-    if !hasmapto("<LocalLeader>a","i")
-        imap <localLeader>a <C-X><C-O>
-    endif
     if(!exists("g:VimMailContactSyncCmd"))
         let g:VimMailContactSyncCmd="pycardsyncer"
     endif
     if(!exists("g:VimMailContactQueryCmd"))
         let g:VimMailContactQueryCmd="pc_query"
     endif
-    if !hasmapto("<LocalLeader>a","n")
-        nmap <localLeader>a :execute ":! ".g:VimMailContactSyncCmd<CR>
+    if !exists("g:VimMailDoNotMap")
+        imap <silent><localLeader>a <C-X><C-O>
+        nmap <silent><localLeader>a :execute ":! ".g:VimMailContactSyncCmd<CR>
     endif
     " Contact completion
     set omnifunc=CompleteAddr

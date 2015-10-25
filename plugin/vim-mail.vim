@@ -15,7 +15,7 @@ set cpo&vim
 
 
 " Toggle spelllang
-if !hasmapto("<LocalLeader>l",'n')
+if !exists("g:VimMailDoNotMap")
     noremap <LocalLeader>l :call vimmail#SwitchSpellLangs()<CR>
 endif
 

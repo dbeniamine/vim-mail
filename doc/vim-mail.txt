@@ -182,6 +182,12 @@ adding to your vimrc something like:
 ==============================================================================
 COMMANDS                                                    *VimMail-commands*
 
+All mappings can be disabled by adding the following line to your vimrc:
+>
+    let g:VimMailDoNotMap=1
+<
+
+
 Open the mail client
     <LocalLeader>M
 
