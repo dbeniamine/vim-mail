@@ -20,4 +20,13 @@ function! vimmail#SwitchSpellLangs()
     let &spelllang=l:nlang
 endfunction
 
+function! vimmail#Sendmail()
+    if !exists("g:VimMailSendCmd")
+        let l:cmd=":!mutt -a %"
+    else
+        let l:cmd=g:VimMailSendCmd
+    endif
+    execute l:cmd
+endfunction
+
 

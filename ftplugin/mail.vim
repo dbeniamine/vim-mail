@@ -3,13 +3,13 @@
 " Author:      David Beniamine <David@Beniamine.net>
 " License:     Vim license
 " Website:     http://github.com/dbeniamine/vim-mail.vim
-" Version:     0.2.3
+" Version:     0.2.5
 
 " Don't load twice {{{1
 if exists("g:loaded_VimMail")
     finish
 endif
-let g:loaded_VimMail=0.2.3
+let g:loaded_VimMail=0.2.5
 
 " Save context {{{1
 let s:save_cpo = &cpo
@@ -71,7 +71,7 @@ endif
 " Start the mail client in RO mode {{{2
 function! VimMailStartClientRO()
     if (!exists("g:VimMailClient"))
-        let g:VimMailClient="xterm -e  \"mutt -R\""
+        let g:VimMailClient="xterm -e  'mutt -R'"
     endif
     execute ":! ".g:VimMailClient
 endfunction

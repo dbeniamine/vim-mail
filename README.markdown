@@ -210,3 +210,14 @@ adding to your vimrc something like:
 
 
 
+### Send file from Vim
+
+When you are vimming at one point, you might want to send the file you are
+working on. Leaving vim to send a mail from vim is so annoying, happily there
+is the solution just type: `<LocalLeader>m` and VimMail will pipe the file to
+mutt.
+
+If you are not using mutt, or want to customize the send mail command, just
+add something like that to your vimrc (this is the default command):
+
+    let g:VimMailSendCmd=":! mutt -a %"

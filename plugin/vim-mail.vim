@@ -3,7 +3,7 @@
 " Author:      David Beniamine <David@Beniamine.net>
 " License:     Vim license
 " Website:     http://github.com/dbeniamine/vim-mail.vim
-" Version:     0.1
+" Version:     0.2.5
 
 "Don't load twice {{{1
 if exists("g:loaded_VimMail")
@@ -17,6 +17,7 @@ set cpo&vim
 " Toggle spelllang
 if !exists("g:VimMailDoNotMap")
     noremap <LocalLeader>l :call vimmail#SwitchSpellLangs()<CR>
+    noremap <LocalLeader>m :call vimmail#Sendmail()<CR>
 endif
 
 " Restore context {{{1
