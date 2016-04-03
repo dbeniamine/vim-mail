@@ -18,7 +18,9 @@ set cpo&vim
 " Go to a part of the message {{{2
 function! VimMailGoto(pattern,post)
     normal gg
-    execute "/".a:pattern
+    if a:pattern != ''
+        execute "/".a:pattern
+    endif
     if a:post != ''
         execute "normal ".a:post
     endif
