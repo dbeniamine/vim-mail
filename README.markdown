@@ -92,107 +92,126 @@ can disable this feature:
 
 ### Redaction
 
-+   **Easy spelllang switch**
+####   Cursor initial position
 
-    While writing mails, I often need to do switch the spell lang which can be
-    annoying, so this plugin provide an easy way to do it. Just type:
+By default vim-mail place your cursor at the beginning of the mail (right
+after the headers) adds a blank line and switch to insert mode. This
+behavior can be modified through a series of flags:
 
-        <LocalLeader>l
+The available flags are:
 
-    and the plugin will switch the spelllang using a list of allowed languages.  
-    If the current spellang is the last allowed, it will disable spell, hit
+    i : insert mode
+    o : Add new line after cursor
+    O : Add new line before cursor
+    A : Place cursor at the end of the line
+    W : Start on second word (a.k.a first address of field / word of subject)
+    t : top (Right after headers)
+    b : Bottom (After last message)
+    F : From field
+    T : To field
+    C : Cc field
+    B : Bcc field
+    S : Subject field
 
-        <LocalLeader>l
+Adding the following line to your vimrc will make you start at the end of
+the subject line:
 
-    once more and you will restart with the first lang.
-    You can set the list of allowed langs in your vimrc:
+    let g:VimMailStartFlags="SAi"
 
-        let g:VimSpellLangs=['fr', 'en', 'sp']
+Or if you want to start at the end of the mail:
 
-    The default allowed langs are  french, english
-    This will work for any filetype as it can be usefull for many other kind of
-    files.
+    let g:VimMailStartFlags="boi"
 
-+   Start at the end of the headers
+#### Easy spelllang switch
 
-    If you use the edit_headers option from mutt (which I recommend), you have
-    to put your cursor manually at the end of the headers before writing your
-    mail. This script will automatically put your cursor at the first empty
-    line of the file.
+While writing mails, I often need to do switch the spell lang which can be
+annoying, so this plugin provide an easy way to do it. Just type:
 
-    If you don't like that add the following to your vimrc:
+    <LocalLeader>l
 
-        let g:VimMailStartOnTop=1
+and the plugin will switch the spelllang using a list of allowed languages.  
+If the current spellang is the last allowed, it will disable spell, hit
 
-+   Messages folds
+    <LocalLeader>l
 
-    A folding method which allows you to open are close the messages of the
-    conversation is provided.
+once more and you will restart with the first lang.
+You can set the list of allowed langs in your vimrc:
 
-    If you do not want to use it, add the following line to your vimrc:
+    let g:VimSpellLangs=['fr', 'en', 'sp']
 
-        let g:VimMailDoNotFold=1
+The default allowed langs are  french, english
+This will work for any filetype as it can be usefull for many other kind of
+files.
+
+#### Messages folds
+
+A folding method which allows you to open are close the messages of the
+conversation is provided.
+
+If you do not want to use it, add the following line to your vimrc:
+
+    let g:VimMailDoNotFold=1
 
 ### Quick in-mail navigation
 
 With this plugin, you can easily navigate through the different par of the
 mail using the following commands:
 
-+   **Headers**
+#### Headers
 
-    Go to the From field:
+Go to the From field:
 
-        <LocalLeader>f
+    <LocalLeader>f
 
-    Go to the Bcc field:
+Go to the Bcc field:
 
-        <LocalLeader>b
+    <LocalLeader>b
 
-    Go to the Cc field:
+Go to the Cc field:
 
-        <LocalLeader>c
+    <LocalLeader>c
 
-    Go to the SUbject field:
+Go to the SUbject field:
 
-        <LocalLeader>s
+    <LocalLeader>s
 
-    Go to the Reply-To field:
+Go to the Reply-To field:
 
-        <LocalLeader>R
+    <LocalLeader>R
 
-    Go to the Reply-To field:
+Go to the Reply-To field:
 
-        <LocalLeader>t
+    <LocalLeader>t
 
-+   **Conversation**
+#### Conversation
 
-    Go to the first line (after headers):
+Go to the first line (after headers):
 
-        <LocalLeader>B
+    <LocalLeader>B
 
-    Go to the first line after the conversation:
+Go to the first line after the conversation:
 
-        <LocalLeader>E
+    <LocalLeader>E
 
-    Go to the first message of the conversation:
+Go to the first message of the conversation:
 
-        <LocalLeader>r
+    <LocalLeader>r
 
-    Go to the second message of the conversation:
+Go to the second message of the conversation:
 
-        <LocalLeader>r2
+    <LocalLeader>r2
 
-    Go to the third message of the conversation:
+Go to the third message of the conversation:
 
-        <LocalLeader>r3
+    <LocalLeader>r3
 
-    Go to the fourth message of the conversation:
+Go to the fourth message of the conversation:
 
-        <LocalLeader>r4
+    <LocalLeader>r4
 
-    Go to your signature:
+Go to your signature:
 
-        <LocalLeader>S
+    <LocalLeader>S
 
 
 ### Launch mail client

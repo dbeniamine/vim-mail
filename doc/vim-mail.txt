@@ -62,6 +62,36 @@ the following line to your vimrc:
 
 Redaction                                                 *VimMail-redaction* ~
 
++   Cursor initial position
+
+    By default vim-mail place your cursor at the beginning of the mail (right
+    after the headers) adds a blank line and switch to insert mode. This
+    behavior can be modified through a series of flags:
+
+    The available flags are:
+>
+        i: insert mode
+        o : Add new line after cursor
+        O : Add new line before cursor
+        A : Place cursor at the end of the line
+        W : Start on second word (a.k.a first address of field / word of subject)
+        t : top (Right after headers)
+        b : Bottom (After last message)
+        F : From field
+        T : To field
+        C : Cc field
+        B : Bcc field
+        S : Subject field
+<
+    Adding the following line to your vimrc will make you start at the end of
+    the subject line:
+>
+        let g:VimMailStartFlags="SAi"
+<
+    Or if you want to start at the end of the mail:
+>
+        let g:VimMailStartFlags="boi"
+<
 +   Easy spelllang switch
 
     While writting mails, I often need to do switch the spell lang which can be
@@ -83,17 +113,6 @@ Redaction                                                 *VimMail-redaction* ~
     This will work for any filetype as it can be usefull for many other kind of
     files.
 
-+   Start at the end of the headers
-
-    If you use the edit_headers option from mutt (which I recommend), you have
-    to put your cursor manually at the end of the headers before writing your
-    mail. This script will automatically put your cursor at the first empty
-    line of the file.
-
-    If you don't like that add the following to your vimrc:
->
-        let g:VimMailStartOnTop=1
-<
 +   Messages folds
 
     A folding method which allows you to open are close the messages of the
