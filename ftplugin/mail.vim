@@ -116,21 +116,7 @@ if !exists("g:VimMailDoNotMap")
     map <silent><LocalLeader>E :call VimMailGoto('^>','Nj') <CR>
 endif
 
-" pc_query completion {{{2
-if(!exists("g:VimMailDontUseComplete"))
-    if(!exists("g:VimMailContactSyncCmd"))
-        let g:VimMailContactSyncCmd="pycardsyncer"
-    endif
-    if(!exists("g:VimMailContactQueryCmd"))
-        let g:VimMailContactQueryCmd="pc_query"
-    endif
-    if !exists("g:VimMailDoNotMap")
-        imap <silent><localLeader>a <C-X><C-O>
-        nmap <silent><localLeader>a :execute ":! ".g:VimMailContactSyncCmd<CR>
-    endif
-    " Contact completion
-    set omnifunc=CompleteAddr
-endif
+
 
 
 " Functions {{{1
@@ -141,75 +127,6 @@ function! VimMailStartClientRO()
         let g:VimMailClient="xterm -e  'mutt -R'"
     endif
     execute ":! ".g:VimMailClient
-endfunction
-
-" Complete function {{{2
-" If we are on a header field provides only mail information
-" Else provides each fields contains in the matched vcards
-function! CompleteAddr(findstart, base)
-    if(a:findstart) "first call {{{3
-        let line=getline('.')
-        " Are we in a header field ?
-        if line=~ '^\(From\|To\|Cc\|Bcc\|Reply-To\):'
-            let g:VimMailCompleteOnlyMail=1
-        else
-            let g:VimMailCompleteOnlyMail=0
-        endif
-        " Find the start
-        let start=col('.')-1
-        while start > 0 && line[start - 1] =~ '\a'
-            let start -= 1
-        endwhile
-        return start
-    else "Find complete {{{3
-        " Set the grep function {{{4
-        if (g:VimMailCompleteOnlyMail)
-            let l:grep="egrep \"(Name|MAIL)\""
-        else
-            let l:grep="grep :"
-        endif
-        let l:records=[]
-        " Do the query {{{4
-        let l:query=system(g:VimMailContactQueryCmd." ".a:base."|".l:grep)
-        for line in split(l:query, '\n')
-            if line=~ "Name" "Recover the name {{{5
-                let l:name=substitute(split(line, ':')[1],"^[ ]*","","")
-            else " parse the answer {{{5
-                " pc_query answer look like this
-                " EMAIL (WORK): foo@bar.com
-                let ans=split(line,':')
-                " Remove useless whitespace
-                let ans[1]=substitute(ans[1], "^[ ]*","","")
-                let l:item={}
-                " Full information for preview window name + pc_query line
-                let l:item.info=l:name.":\n ".line
-                if ans[0]=~"^EMAIL"
-                    " Put email addresses in '<' '>'
-                    let l:item.word=l:name." <".ans[1].">"
-                    let l:item.abbr=ans[1]
-                    let l:item.kind="M"
-                else
-                    let l:item.word=ans[1]
-                    "Use the first letter of the pc_query type for the kind
-                    let l:item.kind=strpart(ans[0],0,1)
-                endif
-                " If there are a precise info (aka '(WORK)') add it
-                if ans[0]=~"(.*)"
-                    let l:item.menu=substitute(ans[0],'\(.*(\|).*\)',"","g")
-                endif
-                call add(records, item)
-            endif
-        endfor
-        if(! exists("g:VimMailDoNotAppendQueryToResults"))
-            " Append the query to the records
-            let l:item={}
-            let l:item.word=a:base
-            let l:item.kind='Q'
-            let l:item.info="query: ".a:base
-            call add(records, item)
-        endif
-        return records
-    endif
 endfunction
 
 " Fold Method {{{2

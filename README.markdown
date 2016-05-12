@@ -56,15 +56,24 @@ to pc_query output, aka something like:
 
 The fields between parentheses are optional.
 
-You can search your  address book from vim using the following commands:
+To search your addressbook from vim:
 
-In insert mode, type:
++   While writing a mail, in insert mode, type:
 
-    <LocalLeader>a
+        <LocalLeader>a
 
-or
+    or (using omnifunc)
 
-    <C-X><C-O>
+        <C-X><C-O>
+
++   While editing any other file:
+
+    As the previous mapping are only set for mail files, you need to set the
+    completefunc (using omnifunc would be a bad idea):
+
+        set completefunc=vimmail#CompleteAddr
+
+    Then use `<C-X><C-U>` (in insert mode) to trigger contact completion.
 
 It will search for the word under the cursor in your contact list.
 
