@@ -29,20 +29,11 @@ function! vimmail#Sendmail()
     execute l:cmd
 endfunction
 
-" pc_query completion
-if(!exists("g:VimMailDontUseComplete"))
-    if(!exists("g:VimMailContactSyncCmd"))
-        let g:VimMailContactSyncCmd="pycardsyncer"
-    endif
-    if(!exists("g:VimMailContactQueryCmd"))
-        let g:VimMailContactQueryCmd="pc_query"
-    endif
-    if !exists("g:VimMailDoNotMap")
-        imap <silent><localLeader>a <C-X><C-O>
-        nmap <silent><localLeader>a :execute ":! ".g:VimMailContactSyncCmd<CR>
-    endif
-    " Contact completion
-    set omnifunc=vimmail#CompleteAddr
+if(!exists("g:VimMailContactSyncCmd"))
+    let g:VimMailContactSyncCmd="pycardsyncer"
+endif
+if(!exists("g:VimMailContactQueryCmd"))
+    let g:VimMailContactQueryCmd="pc_query"
 endif
 
 " Complete function

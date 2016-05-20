@@ -139,5 +139,15 @@ function! VimMaiFoldLevel()
     endif
 endfunction
 
+" pc_query completion {{{2
+if(!exists("g:VimMailDontUseComplete"))
+    if !exists("g:VimMailDoNotMap")
+        imap <silent><localLeader>a <C-X><C-O>
+        nmap <silent><localLeader>a :execute ":! ".g:VimMailContactSyncCmd<CR>
+    endif
+    " Contact completion
+    set omnifunc=vimmail#CompleteAddr
+endif
+
 " Restore context {{{1
 let &cpo = s:save_cpo
