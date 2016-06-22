@@ -52,7 +52,7 @@ To search your address book from vim:
     As the previous mapping are only set for mail files, you need to set the
     completefunc (using omnifunc would be a bad idea):
 
-        set completefunc=vimmail#CompleteAddr
+        set completefunc=vimmail#completion#CompleteAddr
 
     Then use `<C-X><C-U>` (in insert mode) to trigger contact completion.
 
