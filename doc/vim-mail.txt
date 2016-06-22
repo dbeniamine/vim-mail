@@ -14,7 +14,181 @@ Contact completion                                       *VimMail-Completion* ~
 
 The contact completion is designed for
 [pycarddav](https://pypi.python.org/pypi/pyCardDAV), however it is possible to
-use any external tools by setting the following variables:
+use any external tools, see (|VimMail-address-book-configuration|).
+
+To search your address book from vim:
+
++ While writing a mail, in insert mode, type:
+>
+    <LocalLeader>a
+<
+or (using |omnifunc|)
+>
+    <C-X><C-O>
+<
++ While editing any other file:
+  As the previous mapping are only set for mail files, you need to set the
+  |completefunc| (using |omnifunc| would be a bad idea):
+>
+    set completefunc=vimmail#CompleteAddr
+<
+
+Then use `<C-X><C-U>` (in insert mode) to trigger contact completion. It will
+search for the word under the cursor in your contact list.
+
+If you are currently in a From,To,CC or Bcc line, only mail addresses will
+be proposed, else all the match will appear. More details will appear in
+the preview window including contact name, type of the entry (mail, cell,
+phone etc.).
+
+To synchronise your address book, in normal mode, type:
+>
+    <LocalLeader>a
+<
+
+Redaction                                                 *VimMail-redaction* ~
+
++ Cursor initial position                            *VimMail-start-position*
+
+By default vim-mail place your cursor at the beginning of the mail (right
+after the headers) adds a blank line and switch to insert mode. This
+behavior can be modified through a series of flags:
+
+The available flags are:
+
+Flag | Meaning
+-----|----------------------------------------------------------------------
+`i`    | insert mode
+`o`    | Add new line after cursor
+`O`    | Add new line before cursor
+`A`    | Place cursor at the end of the line
+`W`    | Start on second word (a.k.a first address of field / word of subject)
+`t`    | top (Right after headers)
+`b`    | Bottom (After last message)
+`F`    | From field
+`T`    | To field
+`C`    | Cc field
+`B`    | Bcc field
+`S`    | Subject field
+
+Examples:
+
+Adding the following line to your vimrc will make you start at the end of
+the subject line:
+>
+    let g:VimMailStartFlags="SAi"
+<
+Or if you want to start at the end of the mail:
+>
+    let g:VimMailStartFlags="boi"
+<
++ Easy spelllang switch                                       *VimMail-spell*
+
+While writting mails, I often need to do switch the spell lang which can be
+annoying, so this plugin provide an easy way to do it. Just type:
+>
+    <LocalLeader>l
+<
+and the plugin will switch the spelllang using a list of allowed languages.
+If the current spellang is the last allowed, it will disable spell, hit
+>
+    <LocalLeader>l
+<
+once more and you will restart with the first lang.
+You can set the list of allowed langs in your vimrc:
+>
+    let g:VimSpellLangs=['fr', 'en', 'sp']
+<
+The default langs are french, english
+This will work for any filetype as it can be usefull for many other kind of
+files.
+
++ Messages folds                                              *VimMail-folds*
+
+A folding method which allows you to open are close the messages of the
+conversation is provided (see |fold| ).
+
+Quick in-mail navigation                                 *VimMail-navigation* ~
+
+With this plugin, you can easily navigate through the different par of the
+mail using the following mappings:
+
++ Headers:                                       *VimMail-navigation-headers*
+
+Mapping          | Effect
+-----------------|--------------------------
+`<LocalLeader>f` | Go to the From field
+`<LocalLeader>b` | Go to the Bcc field
+`<LocalLeader>c` | Go to the Cc field
+`<LocalLeader>s` | Go to the SUbject field
+`<LocalLeader>R` | Go to the Reply-To field
+`<LocalLeader>t` | Go to the Reply-To field
+
+Conversation:                               *VimMail-navigation-conversation*
+
+Mapping          | Effect
+-----------------|----------------------------------------------
+`<LocalLeader>B` | Go to the first line (after headers)
+`<LocalLeader>E` | Go to the first line after the conversation
+`<LocalLeader>r` | Go to the first message of the conversation
+`<LocalLeader>r2`| Go to the second message of the conversation
+`<LocalLeader>r3`| Go to the third message of the conversation
+`<LocalLeader>r4`| Go to the fourth message of the conversation
+`<LocalLeader>S` | Go to your signature
+
+Launch mail client                                       *VimMail-mailclient* ~
+
+One of Mutt main drawbacks is that you can't access your mailbox while
+writing mails, good news everyone, with vim-mail you can open mutt in RO
+mode easily by typing
+>
+    <LocalLeader>M
+
+Send file from Vim                                            *VimMail-send*~
+
+When you are vimming at one point, you might want to send the file you are
+working on. Leaving vim to send a mail from vim is so annoying, happily there
+is the solution just type:
+>
+    <LocalLeader>m
+<
+and VimMail will pipe the file to mutt.
+
+==============================================================================
+MAPPINGS                                                    *VimMail-mappings*
+
+On any file                                         *VimMail-global-mappings*~
+
+Mapping          | Effect
+-----------------|----------------------------------------------
+`<LocalLeader>m` | Send the current buffer
+`<LocalLeader>l` | Switch spelllang
+`<LocalLeader>M` | Open the mail client
+
+On mail only                                          *VimMail-mail-mappings*~
+
+Mapping          | Effect
+-----------------|----------------------------------------------
+`<Localleader>a` | Search the word before cursor as a contact
+`<LocalLeader>f` | Go to the From field
+`<LocalLeader>b` | Go to the Bcc field
+`<LocalLeader>c` | Go to the Cc field
+`<LocalLeader>s` | Go to the SUbject field
+`<LocalLeader>R` | Go to the Reply-To field
+`<LocalLeader>t` | Go to the Reply-To field
+`<LocalLeader>r` | Go to the first message of the conversation
+`<LocalLeader>r2`| Go to the second message of the conversation
+`<LocalLeader>r3`| Go to the third message of the conversation
+`<LocalLeader>r4`| Go to the fourth message of the conversation
+`<LocalLeader>S` | Go to your signature
+
+==============================================================================
+CONFIGURATION                                        *VimMail-configuration*
+
+Address book configuration               *VimMail-address-book-configuration*~
+
+It is possible to use another address book than pycard by setting the
+following variables:
 >
     let g:VimMailContactSyncCmd="my_synchronisation_cmd"
     let g:VimMailContactQueryCmd="my_query_cmd"
@@ -32,304 +206,47 @@ to pc_query output, aka something like:
 <
 The fields between parentheses are optional.
 
-To search your addressbook from vim:
-
-    + While writing a mail, in insert mode, type:
->
-            <LocalLeader>a
-<
-      or (using |omnifunc|)
->
-            <C-X><C-O>
-<
-    + While editing any other file:
-      As the previous mapping are only set for mail files, you need to set the
-      |completefunc| (using |omnifunc| would be a bad idea):
->
-        set completefunc=vimmail#CompleteAddr
-<
-
-      Then use `<C-X><C-U>` (in insert mode) to trigger contact completion.
-
-It will search for the word under the cursor in your contact list.
-
-If you are currently in a From,To,CC or Bcc line, only mail addresses will
-be proposed, else all the match will appear. More details will appear in
-the preview window including contact name, type of the entry (mail, cell,
-phone etc.). To enable to preview window on completion, add to your vimrc:
+If you don't see the preview while using contact completion, add the following
+to your vimrc (see |completeopt| |preview| ):
 >
     set completeopt=preview
-<
-To synchronise your address book, in normal mode, type:
->
-    <LocalLeader>a
 <
 If you don't want this completion you can either not use the plugin or add
 the following line to your vimrc:
 >
     let g:VimMailDontUseComplete=1
 <
-Redaction                                                 *VimMail-redaction* ~
+By default, the contact completion appends the query to the result list, you
+can disable this feature:
+>
+    let g:VimMailDoNotAppendQueryToResults
+<
+Spell                                           *VimMail-spell-configuration*~
 
-+   Cursor initial position
+Setting the list of possible spell langs:
+>
+    let g:VimSpellLangs=['fr', 'en', 'sp']
+<
+Folds                                           *VimMail-folds-configuration*~
 
-    By default vim-mail place your cursor at the beginning of the mail (right
-    after the headers) adds a blank line and switch to insert mode. This
-    behavior can be modified through a series of flags:
+To disable message folds, add the following line to your vimrc:
+>
+    let g:VimMailDoNotFold=1
+<
+Mail Client                               *VimMail-mail-client-configuration*~
 
-    The available flags are:
+You can set the mail client command to your launcher script by adding to your
+vimrc something like:
 >
-        i: insert mode
-        o : Add new line after cursor
-        O : Add new line before cursor
-        A : Place cursor at the end of the line
-        W : Start on second word (a.k.a first address of field / word of subject)
-        t : top (Right after headers)
-        b : Bottom (After last message)
-        F : From field
-        T : To field
-        C : Cc field
-        B : Bcc field
-        S : Subject field
+    let g:VimMailClient="/path/to/your/launcher"
 <
-    Adding the following line to your vimrc will make you start at the end of
-    the subject line:
->
-        let g:VimMailStartFlags="SAi"
-<
-    Or if you want to start at the end of the mail:
->
-        let g:VimMailStartFlags="boi"
-<
-+   Easy spelllang switch
-
-    While writting mails, I often need to do switch the spell lang which can be
-    annoying, so this plugin provide an easy way to do it. Just type:
->
-        <LocalLeader>l
-<
-    and the plugin will switch the spelllang using a list of allowed languages.  
-    If the current spellang is the last allowed, it will disable spell, hit
->
-        <LocalLeader>l
-<
-    once more and you will restart with the first lang.
-    You can set the list of allowed langs in your vimrc:
->
-        let g:VimSpellLangs=['fr', 'en', 'sp']
-<
-    The default allowed langs are  french, english
-    This will work for any filetype as it can be usefull for many other kind of
-    files.
-
-+   Messages folds
-
-    A folding method which allows you to open are close the messages of the
-    conversation is provided. (see |fold| )
-
-    If you do not want to use it, add the following line to your vimrc:
->
-        let g:VimMailDoNotFold=1
-<
-
-Quick in-mail navigation                                 *VimMail-navigation* ~
-
-With this plugin, you can easily navigate through the different par of the
-mail using the following commands:
-
-+   Headers
-
-    Go to the From field:
->
-        <LocalLeader>f
-<
-    Go to the Bcc field:
->
-        <LocalLeader>b
-<
-    Go to the Cc field:
->
-        <LocalLeader>c
-<
-    Go to the SUbject field:
->
-        <LocalLeader>s
-<
-    Go to the Reply-To field:
->
-        <LocalLeader>R
-<
-    Go to the Reply-To field:
->
-        <LocalLeader>t
-<
-+   Conversation
-
-    Go to the first line (after headers):
->
-        <LocalLeader>B
-<
-    Go to the first line after the conversation:
->
-        <LocalLeader>E
-<
-    Go to the first message of the conversation:
->
-        <LocalLeader>r
-<
-    Go to the second message of the conversation:
->
-        <LocalLeader>r2
-<
-    Go to the third message of the conversation:
->
-        <LocalLeader>r3
-<
-    Go to the fourth message of the conversation:
->
-        <LocalLeader>r4
-<
-    Go to your signature:
->
-        <LocalLeader>S
-<
-
-Launch mail client                                       *VimMail-mailclient* ~
-
-One of Mutt main drawbacks is that you can't access your mailbox while
-writing mails, good news everyone, with vim-mail you can open mutt in RO
-mode easily by typing
->
-    <LocalLeader>M
-<
-Moreover you can set the mail client command to your launcher script by
-adding to your vimrc something like (this is the default command):
->
-    let g:VimMailClient="xterm -e  'mutt -R'"
-
-<
-Send file from Vim                                            *VimMail-send*~
-
-When you are vimming at one point, you might want to send the file you are
-working on. Leaving vim to send a mail from vim is so annoying, happily there
-is the solution just type:
->
-    <LocalLeader>m
-<
-and VimMail will pipe the file to mutt.
-
 If you are not using mutt, or want to customize the send mail command, just
 add something like that to your vimrc (this is the default command):
 >
     let g:VimMailSendCmd=":! mutt -a %"
 <
-==============================================================================
-MAPPINGS                                                    *VimMail-mappings*
+===============================================================================
+License                                                     *VimMail License*~
 
-All mappings can be disabled by adding the following line to your vimrc:
->
-    let g:VimMailDoNotMap=1
-<
-
-On any file                                         *VimMail-global-mappings*~
-
-Send the current buffer
->
-    <LocalLeader>m
-<
-Switch spelllang
->
-    <LocalLeader>l
-<
-
-Open the mail client
->
-    <LocalLeader>M
-<
-On mail only                                          *VimMail-mail-mappings*~
-
-Search the word before cursor as a contact
->
-    <Localleader>a
-<
-Go to the From field:
->
-    <LocalLeader>f
-<
-Go to the Bcc field:
->
-    <LocalLeader>b
-<
-Go to the Cc field:
->
-    <LocalLeader>c
-<
-Go to the SUbject field:
->
-    <LocalLeader>s
-<
-Go to the Reply-To field:
->
-    <LocalLeader>R
-<
-Go to the Reply-To field:
->
-    <LocalLeader>t
-<
-Go to the first message of the conversation:
->
-    <LocalLeader>r
-<
-Go to the second message of the conversation:
->
-    <LocalLeader>r2
-<
-Go to the third message of the conversation:
->
-    <LocalLeader>r3
-<
-Go to the fourth message of the conversation:
->
-    <LocalLeader>r4
-<
-Go to your signature:
->
-    <LocalLeader>S
-<
-==============================================================================
-CONFIGURATION                                        *VimMail-configuration*
-
-To set the synchronise and query contact commands (see |VimMail-Completion|):
->
-    let g:VimMailContactSyncCmd="my_synchronisation_cmd"
-    let g:VimMailContactQueryCmd="my_query_cmd"
-<
-If you don't see the preview while using contact completion, add the following
-to your vimrc (see |completeopt| |preview| ):
->
-    set completeopt=preview
-<
-To disable the contact completion:
->
-    let g:VimMailDontUseComplete=1
-<
-Setting the list of possible spell langs:
->
-    let g:VimSpellLangs=['fr', 'en', 'sp']
-<
-Do not start editing the mail at the first line after headers:
->
-    let g:vimMailStartOnTop=1
-<
-Do not use the provided fold method
->
-    let g:VimMailDoNotFold=1
-<
-Do not append the query to the search result list
->
-    let g:VimMailDoNotAppendQueryToResults
-<
-Set the sendmail command
->
-    let g:VimMailSendCmd=":! mutt -a %"
-<
+This plugin is distributed under GPL License v3.0, see
+https://www.gnu.org/licenses/gpl.txt
