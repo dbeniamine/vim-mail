@@ -1,9 +1,6 @@
-" File:        vim-mail.vim
-" Description: Easy Spelllang switcher
 " Author:      David Beniamine <David@Beniamine.net>
-" License:     Vim license
+" License:     Gpl v3.0
 " Website:     http://github.com/dbeniamine/vim-mail.vim
-" Version:     0.2.5
 
 "Don't load twice {{{1
 if exists("g:loaded_VimMail")
@@ -16,9 +13,11 @@ set cpo&vim
 
 " Toggle spelllang
 if !exists("g:VimMailDoNotMap")
-    noremap <LocalLeader>l :call vimmail#SwitchSpellLangs()<CR>
-    noremap <LocalLeader>m :call vimmail#Sendmail()<CR>
+    noremap <LocalLeader>l :call vimmail#spelllang#SwitchSpellLangs()<CR>
+    noremap <LocalLeader>m :call vimmail#sendmail#Sendmail()<CR>
 endif
 
 " Restore context {{{1
 let &cpo = s:save_cpo
+
+" vim:set et sw=4:

@@ -1,15 +1,13 @@
-" File:        mail.vim
 " Description: Plugin for writing mail from vim (mutt or others)
 " Author:      David Beniamine <David@Beniamine.net>
-" License:     Vim license
+" License:     Gpl v3.0
 " Website:     http://github.com/dbeniamine/vim-mail.vim
-" Version:     0.2.5
 
 " Don't load twice {{{1
 if exists("g:loaded_VimMail")
     finish
 endif
-let g:loaded_VimMail=0.2.5
+let g:loaded_VimMail=0.2.6
 
 " Save context {{{1
 let s:save_cpo = &cpo
@@ -146,8 +144,10 @@ if(!exists("g:VimMailDontUseComplete"))
         nmap <silent><localLeader>a :execute ":! ".g:VimMailContactSyncCmd<CR>
     endif
     " Contact completion
-    set omnifunc=vimmail#CompleteAddr
+    set omnifunc=vimmail#completion#CompleteAddr
 endif
 
 " Restore context {{{1
 let &cpo = s:save_cpo
+
+" vim:set et sw=4:
