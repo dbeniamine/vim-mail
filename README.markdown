@@ -270,7 +270,7 @@ add something like that to your vimrc (this is the default command):
 
 ## License
 
-License                                                     *VimMail Licence*~
+License
 
 This plugin is distributed under GPL Licence v3.0, see
 https://www.gnu.org/licenses/gpl.txt
