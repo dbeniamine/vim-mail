@@ -17,7 +17,7 @@ set cpo&vim
 function! VimMailGoto(pattern,post)
     normal gg
     if a:pattern != ''
-        execute "/".a:pattern
+        execute a:pattern
     endif
     if a:post != ''
         execute "normal ".a:post
@@ -33,6 +33,8 @@ endfunction
 "   O : Add new line before cursor
 "   A : Place cursor at the end of the line
 "   W : Start on second word (a.k.a first address of field / word of subject)
+"   I : Intelligent start: If two replies, start above on below, as the last
+"       replier, else default to other flags
 "   t : top (Right after headers)
 "   b : Bottom (After last message)
 "   F : From field
@@ -57,28 +59,55 @@ elseif g:VimMailStartFlags =~ "W"
 else
     let s:StartMode=''
 endif
-" Start pattern
-if g:VimMailStartFlags =~ "t"
-    let s:StartPos='^$'
-elseif g:VimMailStartFlags =~ "b"
+
+function IntelligentStartPos()
+    call search('^>[ ]*\(Le\|On\).*:','e')
+    let rep1=search('^>[ ]*[^ >]','z')
+    let rep2=search('^>[ ]*>','z')
+    if rep1 == 0 || rep2 ==0
+        return 0
+    endif
+    return rep2-rep1
+endfunction
+
+function StartTop()
+    let s:StartPos='/^$'
+endfunction
+
+function StartBottom()
     if search('^--') != 0
-        let s:StartPos='^--'
+        let s:StartPos='/^--'
         let s:StartMode='k'.s:StartMode
     else
         let s:StartPos=''
         let s:StartMode='G'.s:StartMode
     endif
+endfunction
+
+" Start pattern
+let pos=IntelligentStartPos()
+if g:VimMailStartFlags =~ "I" && pos !=0
+    if pos > 0
+        call StartTop()
+    else
+        call StartBottom()
+    endif
+elseif g:VimMailStartFlags =~ "t"
+        call StartTop()
+elseif g:VimMailStartFlags =~ "b"
+    call StartBottom()
 elseif g:VimMailStartFlags =~ "F"
-    let s:StartPos='^From'
+    let s:StartPos='/^From'
 elseif g:VimMailStartFlags =~ "T"
-    let s:StartPos='^To'
+    let s:StartPos='/^To'
 elseif g:VimMailStartFlags =~ "C"
-    let s:StartPos='^Cc'
+    let s:StartPos='/^Cc'
 elseif g:VimMailStartFlags =~ "B"
-    let s:StartPos='^Bcc'
+    let s:StartPos='/^Bcc'
 elseif g:VimMailStartFlags =~ "S"
-    let s:StartPos='^Subject'
+    let s:StartPos='/^Subject'
 endif
+
 " Place cursor
 " Insert mode
 let cmd='au BufWinEnter *mutt-* call VimMailGoto(s:StartPos,s:StartMode)'
