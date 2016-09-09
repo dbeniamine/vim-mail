@@ -128,19 +128,19 @@ if !exists("g:VimMailDoNotMap")
     map <silent><LocalLeader>M  :call VimMailStartClientRO() <CR>
 
 " Go to different parts of the mail {{{2
-    map <silent><LocalLeader>f :call VimMailGoto('^From','A') <CR>
-    map <silent><LocalLeader>b :call VimMailGoto('^Bcc','A') <CR>
-    map <silent><LocalLeader>c :call VimMailGoto('^Cc','A') <CR>
-    map <silent><LocalLeader>s :call VimMailGoto('^Subject','A') <CR>
-    map <silent><LocalLeader>R :call VimMailGoto('^Reply-To','A') <CR>
-    map <silent><LocalLeader>t :call VimMailGoto('^To','A') <CR>
-    map <silent><LocalLeader>r :call VimMailGoto('^>','I') <CR>
-    map <silent><LocalLeader>r2 :call VimMailGoto('^>\s*>','I') <CR>
-    map <silent><LocalLeader>r3 :call VimMailGoto('^>\s*>\s*>','I') <CR>
-    map <silent><LocalLeader>r4 :call VimMailGoto('^>\s*>\s*>\s*>','I') <CR>
-    map <silent><LocalLeader>S :call VimMailGoto('^-- ','j') <CR>
-    map <silent><LocalLeader>B :call VimMailGoto('^$','I') <CR>
-    map <silent><LocalLeader>E :call VimMailGoto('^>','Nj') <CR>
+    map <silent><LocalLeader>f :call VimMailGoto('/^From','A') <CR>
+    map <silent><LocalLeader>b :call VimMailGoto('/^Bcc','A') <CR>
+    map <silent><LocalLeader>c :call VimMailGoto('/^Cc','A') <CR>
+    map <silent><LocalLeader>s :call VimMailGoto('/^Subject','A') <CR>
+    map <silent><LocalLeader>R :call VimMailGoto('/^Reply-To','A') <CR>
+    map <silent><LocalLeader>t :call VimMailGoto('/^To','A') <CR>
+    map <silent><LocalLeader>r :call VimMailGoto('/^>','I') <CR>
+    map <silent><LocalLeader>r2 :call VimMailGoto('/^>\s*>','I') <CR>
+    map <silent><LocalLeader>r3 :call VimMailGoto('/^>\s*>\s*>','I') <CR>
+    map <silent><LocalLeader>r4 :call VimMailGoto('/^>\s*>\s*>\s*>','I') <CR>
+    map <silent><LocalLeader>S :call VimMailGoto('/^-- ','j') <CR>
+    map <silent><LocalLeader>B :call VimMailGoto('/^$','I') <CR>
+    map <silent><LocalLeader>E :call VimMailGoto('/^>','Nj') <CR>
 endif
 
 
