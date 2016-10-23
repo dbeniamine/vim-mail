@@ -120,7 +120,7 @@ If the current spellang is the last allowed, it will disable spell, hit
 once more and you will restart with the first lang.
 You can set the list of allowed langs in your vimrc:
 
-    let g:VimSpellLangs=['fr', 'en', 'sp']
+    let g:VimMailSpellLangs=['fr', 'en', 'sp']
 
 The default langs are french, english.
 
@@ -250,7 +250,7 @@ can disable this feature:
 
 Setting the list of possible spell langs:
 
-    let g:VimSpellLangs=['fr', 'en', 'sp']
+    let g:VimMailSpellLangs=['fr', 'en', 'sp']
 
 ### Folds
 
