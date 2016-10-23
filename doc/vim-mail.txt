@@ -99,7 +99,7 @@ If the current spellang is the last allowed, it will disable spell, hit
 once more and you will restart with the first lang.
 You can set the list of allowed langs in your vimrc:
 >
-    let g:VimSpellLangs=['fr', 'en', 'sp']
+    let g:VimMailSpellLangs=['fr', 'en', 'sp']
 <
 The default langs are french, english
 This will work for any filetype as it can be usefull for many other kind of
@@ -227,7 +227,7 @@ Spell                                           *VimMail-spell-configuration*~
 
 Setting the list of possible spell langs:
 >
-    let g:VimSpellLangs=['fr', 'en', 'sp']
+    let g:VimMailSpellLangs=['fr', 'en', 'sp']
 <
 Folds                                           *VimMail-folds-configuration*~
 
