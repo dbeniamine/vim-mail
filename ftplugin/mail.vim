@@ -153,7 +153,7 @@ function! VimMailStartClientRO()
     if (!exists("g:VimMailClient"))
         let g:VimMailClient="xterm -e  'mutt -R'"
     endif
-    execute ":! ".g:VimMailClient
+    execute ":silent !".g:VimMailClient
 endfunction
 
 " Fold Method {{{2
