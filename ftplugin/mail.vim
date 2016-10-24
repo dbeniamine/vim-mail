@@ -62,8 +62,8 @@ endif
 
 function IntelligentStartPos()
     call search('^>[ ]*\(Le\|On\).*:','e')
-    let rep1=search('^>[ ]*[^ >]','z')
-    let rep2=search('^>[ ]*>','z')
+    let rep1=search('^>[ ]*[^ >]','W')
+    let rep2=search('^>[ ]*>','W')
     if rep1 == 0 || rep2 ==0
         return 0
     endif
