@@ -79,6 +79,7 @@ The available flags are:
 
 Flag | Meaning
 -----|----------------------------------------------------------------------
+`r`  | Remove quoted signatures from reply
 `i`  | insert mode
 `o`  | Add new line after cursor
 `O`  | Add new line before cursor

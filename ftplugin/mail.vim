@@ -24,6 +24,16 @@ function! VimMailGoto(pattern,post)
     endif
 endfunction
 
+function! VimMailKillQuotedSig()
+    try
+        normal gg
+        /^ *>[> ]* -- *$/
+        normal d}
+    catch
+        return
+    endtry
+endfunction
+
 " Configuration {{{1
 
 " Set start position {{{2
@@ -42,11 +52,17 @@ endfunction
 "   C : Cc field
 "   B : Bcc field
 "   S : Subject field
+"   r : Remove quoted signatures
 if !exists("g:VimMailStartFlags")
     let g:VimMailStartFlags="toi"
 endif
 
 " Start position {{{2
+" Remove quoted signatures
+if g:VimMailStartFlags =~ "r"
+    call VimMailKillQuotedSig()
+endif
+
 " Start mode
 if g:VimMailStartFlags =~ "o"
     let s:StartMode='o'
@@ -141,6 +157,7 @@ if !exists("g:VimMailDoNotMap")
     map <silent><LocalLeader>S :call VimMailGoto('/^-- ','j') <CR>
     map <silent><LocalLeader>B :call VimMailGoto('/^$','I') <CR>
     map <silent><LocalLeader>E :call VimMailGoto('/^>','Nj') <CR>
+    map <silent><LocalLeader>kqs :call VimMailKillQuotedSig() <CR>
 endif
 
 
