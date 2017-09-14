@@ -26,9 +26,7 @@ endfunction
 
 function! VimMailKillQuotedSig()
     try
-        normal gg
-        /^ *>[> ]* -- *$/
-        normal d}
+        execute "normal! gg/^ *>[> ]* -- *$/\<CR>d/^-- $/\<CR>"
     catch
         return
     endtry
