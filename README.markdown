@@ -194,20 +194,21 @@ All mappings can be disabled by adding the following line to your vimrc:
 
 +   On mail only
 
-    Mapping          | Effect
-    -----------------|----------------------------------------------
-    `<Localleader>a` | Search the word before cursor as a contact
-    `<LocalLeader>f` | Go to the From field
-    `<LocalLeader>b` | Go to the Bcc field
-    `<LocalLeader>c` | Go to the Cc field
-    `<LocalLeader>s` | Go to the SUbject field
-    `<LocalLeader>R` | Go to the Reply-To field
-    `<LocalLeader>t` | Go to the Reply-To field
-    `<LocalLeader>r` | Go to the first message of the conversation
-    `<LocalLeader>r2`| Go to the second message of the conversation
-    `<LocalLeader>r3`| Go to the third message of the conversation
-    `<LocalLeader>r4`| Go to the fourth message of the conversation
-    `<LocalLeader>S` | Go to your signature
+    Mapping            | Effect
+    -------------------|----------------------------------------------
+    `<Localleader>a`   | Search the word before cursor as a contact
+    `<LocalLeader>f`   | Go to the From field
+    `<LocalLeader>b`   | Go to the Bcc field
+    `<LocalLeader>c`   | Go to the Cc field
+    `<LocalLeader>s`   | Go to the SUbject field
+    `<LocalLeader>R`   | Go to the Reply-To field
+    `<LocalLeader>t`   | Go to the Reply-To field
+    `<LocalLeader>r`   | Go to the first message of the conversation
+    `<LocalLeader>r2`  | Go to the second message of the conversation
+    `<LocalLeader>r3`  | Go to the third message of the conversation
+    `<LocalLeader>r4`  | Go to the fourth message of the conversation
+    `<LocalLeader>S`   | Go to your signature
+    `<LocalLeader>kqs` | Kill Quoted Signatures
 
 ## CONFIGURATION
 

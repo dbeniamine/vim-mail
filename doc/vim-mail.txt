@@ -131,13 +131,14 @@ Conversation:                               *VimMail-navigation-conversation*
 
 Mapping          | Effect
 -----------------|----------------------------------------------
-`<LocalLeader>B` | Go to the first line (after headers)
-`<LocalLeader>E` | Go to the first line after the conversation
-`<LocalLeader>r` | Go to the first message of the conversation
-`<LocalLeader>r2`| Go to the second message of the conversation
-`<LocalLeader>r3`| Go to the third message of the conversation
-`<LocalLeader>r4`| Go to the fourth message of the conversation
-`<LocalLeader>S` | Go to your signature
+`<LocalLeader>B`   | Go to the first line (after headers)
+`<LocalLeader>E`   | Go to the first line after the conversation
+`<LocalLeader>r`   | Go to the first message of the conversation
+`<LocalLeader>r2`  | Go to the second message of the conversation
+`<LocalLeader>r3`  | Go to the third message of the conversation
+`<LocalLeader>r4`  | Go to the fourth message of the conversation
+`<LocalLeader>S`   | Go to your signature
+`<LocalLeader>kqs` | Kill Quoted Signatures
 
 Launch mail client                                       *VimMail-mailclient* ~
 
