@@ -25,11 +25,13 @@ function! VimMailGoto(pattern,post)
 endfunction
 
 function! VimMailKillQuotedSig()
+    normal! gg
     try
-        execute "normal! gg/^ *>[> ]* -- *$/\<CR>d/^-- $/\<CR>"
+        /^ *>[> ]* -- *$/
     catch
         return
     endtry
+    execute "normal! d/^-- $/\<CR>"
 endfunction
 
 " Configuration {{{1
