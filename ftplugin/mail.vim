@@ -27,11 +27,19 @@ endfunction
 function! VimMailKillQuotedSig()
     normal! gg
     try
+        " Look for first quoted sig
         /^ *>[> ]* -- *$/
     catch
+        " No quoted sig get out
         return
     endtry
-    execute "normal! d/^-- $/\<CR>"
+    try
+        " Remove everything until our signature
+        execute "normal! d/^-- $/\<CR>"
+    catch
+        " Oups we don't have a signature => remove untill the next empty line
+        execute "normal! d}"
+    endtry
 endfunction
 
 " Configuration {{{1
