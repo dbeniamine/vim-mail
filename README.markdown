@@ -1,3 +1,5 @@
+**This repository is only a mirror, all developpment happens at [gitlab](https://gitlab.com/dbeniamine/vim-mail)**
+
 # Readme
 
 ## What is this plugin ?
