@@ -1,5 +1,17 @@
 # Readme
 
+## Anounces
+
+Vim-mail can now handle (virtually) any contact providers, this implies a few
+configuration changes.
+
+see
+[contacts completion](#contacts-completion)
+and
+[Address book configuration](#address-book-coniguration)
+and maybe
+[Adding a contact provider](adding-a-contact-provider).
+
 ## What is this plugin ?
 
 This plugin is a small helper for writing mail from vim, I designed it using
@@ -32,10 +44,10 @@ This plugin provides the following features
 
 ### Contact completion
 
-The contact completion is designed for
-[pycarddav](https://pypi.python.org/pypi/pyCardDAV), however it is possible to
-use any external tools, see [address book
-configuration](#address-book-configuration).
+The contact completion can handled virtually any address book management
+command, currently only `pc_query` is officially supported see [address book
+configuration](#address-book-configuration) and
+[Adding a contact provider](adding-a-contact-provider).
 
 To search your address book from vim:
 
@@ -52,7 +64,7 @@ To search your address book from vim:
     As the previous mapping are only set for mail files, you need to set the
     completefunc (using omnifunc would be a bad idea):
 
-        set completefunc=vimmail#completion#CompleteAddr
+        set completefunc=vimmail#contacts#CompleteAddr
 
     Then use `<C-X><C-U>` (in insert mode) to trigger contact completion.
 
@@ -214,24 +226,16 @@ All mappings can be disabled by adding the following line to your vimrc:
 
 ### Address book configuration
 
-It is possible to use another address book than pycard by setting the
-following variables:
+Currently only `pc_query` is supported. Nevertheless you can change `pycard`
+query and sync commandsby adding the following to your vimrc (adapting the
+commands) :
 
-    let g:VimMailContactSyncCmd="my_synchronisation_cmd"
-    let g:VimMailContactQueryCmd="my_query_cmd"
+    if(!exists("g:VimMailContactsCommands"))
+        let g:VimMailContactsCommands = {}
+    endif
+    let g:VimMailContactsCommands['pc_query']={ 'query' : "pc_query",
+                \'sync': "pycardsyncer"}
 
-The only restriction is that the query command should give an output similar
-to pc_query output, aka something like:
-
-    Name: Someone
-    Tel (CELL): 000000000
-    EMAIL : someone@foo.bar
-    Name: Someone else
-    TEL: 0000000
-    EMAIL (Work): Someone.else@work.com
-    EMAIL (Perso): Someone.else@dummyprovider.com
-
-The fields between parentheses are optional.
 
 If you don't see the preview while using contact completion, add the following
 to your vimrc (see |completeopt| |preview| ):
@@ -271,6 +275,28 @@ If you are not using mutt, or want to customize the send mail command, just
 add something like that to your vimrc (this is the default command):
 
     let g:VimMailSendCmd=":! mutt -a %"
+
+## Adding a contact provider
+
+Adding a contact provider is now a simple task for anyone who already wrote
+some vimscript. To add a provider for the command `my_abook`, one needs to
+
+1. Copy `autoload/vimmail/contacts/pc_query.vim` to
+`autoload/vimmail/contacts/my_abook.vim`
+2. Rename the functions replacing `pc_query` by `my_abook`
+3. Same for the dictionnary at the beginnig
+4. Adapts both functions
+    + To write the complete function see `:help completefunc`, it should return
+    a list of results, each results being a dictionnaty, containing :
+        + `word` : the replacement to write
+        + `kind` : the kind of result itis (`M` mail, `C` for `T` for
+        Telephone)
+        + `menu` : a bit more info like `cell`, `work`, `personnal`
+        + `abbr` for email adresses, only the email (instead of `first last <email>`)
+        + `info` : supplementary field info (usually the name of the contact
+        and the full line of the provider command)
+    + The sync function is trivial
+
 
 ## License
 
