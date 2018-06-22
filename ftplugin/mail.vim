@@ -195,10 +195,10 @@ endfunction
 if(!exists("g:VimMailDontUseComplete"))
     if !exists("g:VimMailDoNotMap")
         imap <silent><localLeader>a <C-X><C-O>
-        nmap <silent><localLeader>a :execute ":! ".g:VimMailContactSyncCmd<CR>
+        nmap <silent><localLeader>a :call vimmail#contacts#sync()<CR>
     endif
     " Contact completion
-    set omnifunc=vimmail#completion#CompleteAddr
+    set omnifunc=vimmail#contacts#CompleteAddr
 endif
 
 " Restore context {{{1

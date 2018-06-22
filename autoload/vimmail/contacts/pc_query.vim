@@ -3,17 +3,20 @@
 " License:     Gpl v3.0
 " Website:     http://github.com/dbeniamine/vim-mail.vim
 
-if(!exists("g:VimMailContactSyncCmd"))
-    let g:VimMailContactSyncCmd="pycardsyncer"
+if(!has_key(g:VimMailContactsCommands, "pc_query"))
+    let g:VimMailContactsCommands['pc_query']={ 'query' : "pc_query",
+                \'sync': "pycardsyncer"}
 endif
-if(!exists("g:VimMailContactQueryCmd"))
-    let g:VimMailContactQueryCmd="pc_query"
-endif
+echo g:VimMailContactsCommands
+
+function! vimmail#contacts#pc_query#sync()
+    execute ":! ".g:VimMailContactsCommands['pc_query']['sync']
+endfunction
 
 " Complete function
 " If we are on a header field provides only mail information
 " Else provides each fields contains in the matched vcards
-function! vimmail#completion#CompleteAddr(findstart, base)
+function! vimmail#contacts#pc_query#complete(findstart, base)
     if(a:findstart) "first call {{{3
         let line=getline('.')
         " Are we in a header field ?
@@ -35,9 +38,10 @@ function! vimmail#completion#CompleteAddr(findstart, base)
         else
             let l:grep="grep :"
         endif
-        let l:records=[]
+        let records=[]
         " Do the query {{{4
-        let l:query=system(g:VimMailContactQueryCmd." ".a:base."|".l:grep)
+        let l:query=system(g:VimMailContactsCommands['pc_query']['query'].
+                    \" ".a:base."|".l:grep)
         for line in split(l:query, '\n')
             if line=~ "Name" "Recover the name {{{5
                 let l:name=substitute(split(line, ':')[1],"^[ ]*","","")
@@ -67,14 +71,6 @@ function! vimmail#completion#CompleteAddr(findstart, base)
                 call add(records, item)
             endif
         endfor
-        if(! exists("g:VimMailDoNotAppendQueryToResults"))
-            " Append the query to the records
-            let l:item={}
-            let l:item.word=a:base
-            let l:item.kind='Q'
-            let l:item.info="query: ".a:base
-            call add(records, item)
-        endif
         return records
     endif
 endfunction
