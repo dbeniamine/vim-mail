@@ -12,12 +12,31 @@ if(!exists("g:VimMailContactsCommands"))
     let g:VimMailContactsCommands = {}
 endif
 
+if(!exists('s:scriptdir'))
+    let s:scriptdir=expand('<sfile>:h:p')
+endif
+
+function! s:CheckContactProvider()
+    if(!filereadable(s:scriptdir.'/contacts/'.g:VimMailContactsProvider.'.vim'))
+        call vimmail#echo("Unsupported provider : '".g:VimMailContactsProvider."'",
+                    \"e")
+        return 0
+    endif
+    return 1
+endfunction
+
 function! vimmail#contacts#sync()
+    if(!s:CheckContactProvider())
+        return
+    endif
     call function('vimmail#contacts#'.g:VimMailContactsProvider.'#sync')()
 endfunction
 
 " Complete function
 function! vimmail#contacts#CompleteAddr(findstart, base)
+    if(!s:CheckContactProvider())
+        return
+    endif
     let records=function('vimmail#contacts#'.g:VimMailContactsProvider.'#complete')
                 \(a:findstart, a:base)
     if(!a:findstart && ! exists("g:VimMailDoNotAppendQueryToResults"))

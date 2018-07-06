@@ -27,9 +27,9 @@ function! vimmail#contacts#khard#complete(findstart, base)
     else "Find complete {{{3
         let records=[]
         " Do the query {{{4
-        let l:query=system(g:VimMailContactsCommands['khard']['query'].
+        let output=vimmail#runcmd(g:VimMailContactsCommands['khard']['query'].
                     \" ".a:base)
-        for line in split(l:query, '\n')
+        for line in output
             if line!~ "searching"
                 let l:item={}
                 let ans=split(line,'\t')

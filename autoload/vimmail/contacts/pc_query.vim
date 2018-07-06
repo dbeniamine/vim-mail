@@ -7,7 +7,6 @@ if(!has_key(g:VimMailContactsCommands, "pc_query"))
     let g:VimMailContactsCommands['pc_query']={ 'query' : "pc_query",
                 \'sync': "pycardsyncer"}
 endif
-echo g:VimMailContactsCommands
 
 function! vimmail#contacts#pc_query#sync()
     execute ":! ".g:VimMailContactsCommands['pc_query']['sync']
@@ -40,9 +39,9 @@ function! vimmail#contacts#pc_query#complete(findstart, base)
         endif
         let records=[]
         " Do the query {{{4
-        let l:query=system(g:VimMailContactsCommands['pc_query']['query'].
-                    \" ".a:base."|".l:grep)
-        for line in split(l:query, '\n')
+        let out=vimmail#runcmd(g:VimMailContactsCommands['pc_query']['query'].
+                    \" ".a:base." | ".l:grep)
+        for line in out
             if line=~ "Name" "Recover the name {{{5
                 let l:name=substitute(split(line, ':')[1],"^[ ]*","","")
             else " parse the answer {{{5
