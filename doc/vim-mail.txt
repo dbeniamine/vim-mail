@@ -7,8 +7,8 @@ combination with [CheckAttach](https://github.com/chrisbra/CheckAttach).
 ===============================================================================
 Anounces                                                  *VimMail-Announces* ~
 
-Vim-mail can now handle (virtually) any contact providers, this implies a few
-configuration changes.
+Since v0.2.7 Vim-mail can handle (virtually) any contact providers, this implies
+a few configuration changes.
 
 see |VimMail-Completion| and |VimMail-address-book-configuration| and maybe
 |VimMail-adding-a-contact-provider|.
@@ -199,9 +199,13 @@ CONFIGURATION                                        *VimMail-configuration*
 
 Address book configuration               *VimMail-address-book-configuration*~
 
-Currently only `pc_query` is supported. Nevertheless you can change `pycard`
-query and sync commandsby adding the following to your vimrc (adapting the
-commands) :
+Currently only `pc_query` (default) and `khard` are supported. You can set your
+provider using
+>
+    let g:VimMailContactsProvider='pc_query'
+>
+You can also change query and sync commandsby adding the following to your
+vimrc (adapting the commands) :
 
     if(!exists("g:VimMailContactsCommands"))
         let g:VimMailContactsCommands = {}

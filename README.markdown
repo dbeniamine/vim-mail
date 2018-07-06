@@ -1,11 +1,9 @@
-**This repository is only a mirror, all developpment happens at [gitlab](https://gitlab.com/dbeniamine/vim-mail)**
-
 # Readme
 
 ## Anounces
 
-Vim-mail can now handle (virtually) any contact providers, this implies a few
-configuration changes.
+Since v0.2.7 Vim-mail can handle (virtually) any contact providers, this implies
+a few configuration changes.
 
 see
 [contacts completion](#contacts-completion)
@@ -228,9 +226,13 @@ All mappings can be disabled by adding the following line to your vimrc:
 
 ### Address book configuration
 
-Currently only `pc_query` is supported. Nevertheless you can change `pycard`
-query and sync commandsby adding the following to your vimrc (adapting the
-commands) :
+Currently only `pc_query` (default) and `khard` are supported. You can set your
+provider using
+
+    let g:VimMailContactsProvider='pc_query'
+
+You can also change query and sync commandsby adding the following to your
+vimrc (adapting the commands) :
 
     if(!exists("g:VimMailContactsCommands"))
         let g:VimMailContactsCommands = {}
