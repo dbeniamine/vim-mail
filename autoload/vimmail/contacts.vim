@@ -50,5 +50,20 @@ function! vimmail#contacts#CompleteAddr(findstart, base)
     return records
 endfunction
 
+function vimmail#contacts#startComplete()
+    let line=getline('.')
+    " Are we in a header field ?
+    if line=~ '^\(From\|To\|Cc\|Bcc\|Reply-To\):'
+        let g:VimMailCompleteOnlyMail=1
+    else
+        let g:VimMailCompleteOnlyMail=0
+    endif
+    " Find the start
+    let start=col('.')-1
+    while start > 0 && line[start - 1] =~ '\a'
+        let start -= 1
+    endwhile
+    return start
+endfunction
 
 " vim:set et sw=4:
