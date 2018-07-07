@@ -7,7 +7,6 @@ if(!has_key(g:VimMailContactsCommands, "pc_query"))
     let g:VimMailContactsCommands['pc_query']={ 'query' : "pc_query",
                 \'sync': "pycardsyncer"}
 endif
-echo g:VimMailContactsCommands
 
 function! vimmail#contacts#pc_query#sync()
     execute ":! ".g:VimMailContactsCommands['pc_query']['sync']
@@ -18,19 +17,7 @@ endfunction
 " Else provides each fields contains in the matched vcards
 function! vimmail#contacts#pc_query#complete(findstart, base)
     if(a:findstart) "first call {{{3
-        let line=getline('.')
-        " Are we in a header field ?
-        if line=~ '^\(From\|To\|Cc\|Bcc\|Reply-To\):'
-            let g:VimMailCompleteOnlyMail=1
-        else
-            let g:VimMailCompleteOnlyMail=0
-        endif
-        " Find the start
-        let start=col('.')-1
-        while start > 0 && line[start - 1] =~ '\a'
-            let start -= 1
-        endwhile
-        return start
+        return vimmail#contacts#startComplete()
     else "Find complete {{{3
         " Set the grep function {{{4
         if (g:VimMailCompleteOnlyMail)
@@ -40,9 +27,9 @@ function! vimmail#contacts#pc_query#complete(findstart, base)
         endif
         let records=[]
         " Do the query {{{4
-        let l:query=system(g:VimMailContactsCommands['pc_query']['query'].
-                    \" ".a:base."|".l:grep)
-        for line in split(l:query, '\n')
+        let out=vimmail#runcmd(g:VimMailContactsCommands['pc_query']['query'].
+                    \" ".a:base." | ".l:grep)
+        for line in out
             if line=~ "Name" "Recover the name {{{5
                 let l:name=substitute(split(line, ':')[1],"^[ ]*","","")
             else " parse the answer {{{5
