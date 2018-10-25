@@ -42,6 +42,24 @@ function! vimmail#echo(msg,type,...)
   return ret
 endfunction
 
+function! vimmail#switchFrom()
+    if(!exists("g:VimMailFromList"))
+        call vimmail#echo("g:VimMailFromList should be set to a list of "
+                    \."from addresses to use this function", "e")
+        return
+    endif
+ 
+    let fromLine=search('^From:', 'cn')
+    let curFrom = substitute(getline(fromLine), '^From:\s*\(.*\)\s*$', '\1', '')
+
+    let newPos = (index(g:VimMailFromList, curFrom)+1)%len(g:VimMailFromList)
+    let newFrom = g:VimMailFromList[newPos]
+
+    let oldPos=getcurpos()
+    execute ":".fromLine."s/".curFrom."/".newFrom."/"
+    call setpos('.', oldPos)
+endfunction
+
 function! vimmail#runcmd(cmd)
     let out=systemlist(a:cmd)
     if(v:shell_error==0)

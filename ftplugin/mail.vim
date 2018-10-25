@@ -7,7 +7,7 @@
 if exists("g:loaded_VimMail")
     finish
 endif
-let g:loaded_VimMail=0.2.8
+let g:loaded_VimMail=0.2.9
 
 " Save context {{{1
 let s:save_cpo = &cpo
@@ -152,6 +152,7 @@ if !exists("g:VimMailDoNotMap")
     map <silent><LocalLeader>M  :call VimMailStartClientRO() <CR>
 
 " Go to different parts of the mail {{{2
+    map <silent><LocalLeader>F :call vimmail#switchFrom() <CR>
     map <silent><LocalLeader>f :call VimMailGoto('/^From','A') <CR>
     map <silent><LocalLeader>b :call VimMailGoto('/^Bcc','A') <CR>
     map <silent><LocalLeader>c :call VimMailGoto('/^Cc','A') <CR>
@@ -183,7 +184,11 @@ endfunction
 
 " Fold Method {{{2
 function! VimMaiFoldLevel()
-    let l:line = matchstr(getline(v:lnum),'^>[> ]*')
+    return s:FoldLevel(v:lnum)
+endfunction
+
+function! s:FoldLevel(lnum)
+    let l:line = matchstr(getline(a:lnum),'^>[> ]*')
     if !empty(l:line)
         return len(substitute(l:line,' ',"","g"))
     else
@@ -200,6 +205,35 @@ if(!exists("g:VimMailDontUseComplete"))
     " Contact completion
     set omnifunc=vimmail#contacts#CompleteAddr
 endif
+
+" Prepare markdown quotes {{{2
+function! VimMailPandocQuotes()
+    normal zRG
+    " Iterates lines
+    let oldLevel=0
+    let l:lnum=getcurpos()[1]
+    while l:lnum > 0
+        let currentLevel=s:FoldLevel(l:lnum)
+        let line=getline(l:lnum)
+        if( currentLevel != oldLevel && match(line, '^[>\s]*$') == -1 &&
+                    \match(getline(l:lnum+1), '^[>\s]*$') == -1 )
+            " Separate blocks
+            normal o
+            if(oldLevel > currentLevel)
+                exec 'normal i'.repeat('>', min([currentLevel, oldLevel]))
+            endif
+            normal k
+        endif
+        if(currentLevel > 0 )
+            " Remove spaces between > >
+            let res = substitute(matchstr(line,'^>[> ]*'),' ',"","g")
+            execute ':s/^[> ]* /'.res.' /e'
+        endif
+        normal k
+        let l:lnum=l:lnum-1
+        let oldLevel=currentLevel
+    endwhile
+endfunction
 
 " Restore context {{{1
 let &cpo = s:save_cpo

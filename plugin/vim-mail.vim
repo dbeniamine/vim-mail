@@ -6,6 +6,7 @@
 if exists("g:loaded_VimMail")
     finish
 endif
+let g:loaded_VimMail=0.2.9
 " Save context {{{1
 let s:save_cpo = &cpo
 set cpo&vim
