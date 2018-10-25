@@ -7,7 +7,7 @@
 if exists("g:loaded_VimMail")
     finish
 endif
-let g:loaded_VimMail=0.2.8
+let g:loaded_VimMail=0.2.9
 
 " Save context {{{1
 let s:save_cpo = &cpo
@@ -152,6 +152,7 @@ if !exists("g:VimMailDoNotMap")
     map <silent><LocalLeader>M  :call VimMailStartClientRO() <CR>
 
 " Go to different parts of the mail {{{2
+    map <silent><LocalLeader>F :call vimmail#switchFrom() <CR>
     map <silent><LocalLeader>f :call VimMailGoto('/^From','A') <CR>
     map <silent><LocalLeader>b :call VimMailGoto('/^Bcc','A') <CR>
     map <silent><LocalLeader>c :call VimMailGoto('/^Cc','A') <CR>

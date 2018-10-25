@@ -7,8 +7,12 @@ combination with [CheckAttach](https://github.com/chrisbra/CheckAttach).
 ===============================================================================
 Anounces                                                  *VimMail-Announces* ~
 
-Since v0.2.7 Vim-mail can handle (virtually) any contact providers, this implies
-a few configuration changes.
++ v0.2.9 adds a mapping to switch from address from a predefined list see
+|VimMail-switchfrom|
+
+
++ Since v0.2.7 Vim-mail can handle (virtually) any contact providers, this
+implies a few configuration changes.
 
 see |VimMail-Completion| and |VimMail-address-book-configuration| and maybe
 |VimMail-adding-a-contact-provider|.
@@ -114,6 +118,16 @@ The default langs are french, english
 This will work for any filetype as it can be usefull for many other kind of
 files.
 
++ Switch from                                            *VimMail-switchfrom*
+
+You can easliy from address just by hitting `<localleader>F`, to enable this
+feature, you only needto add a list of identities in you `.vimrc` :
+>
+    let g:VimMailFromList = [
+        \'John doe <John@doe.foo>',
+        \'Ano nymous <ano@nymous.org'
+        \]
+
 + Messages folds                                              *VimMail-folds*
 
 A folding method which allows you to open are close the messages of the
@@ -182,6 +196,7 @@ On mail only                                          *VimMail-mail-mappings*~
 Mapping          | Effect
 -----------------|----------------------------------------------
 `<Localleader>a` | Search the word before cursor as a contact
+`<LocalLeader>F` | Switch the from address
 `<LocalLeader>f` | Go to the From field
 `<LocalLeader>b` | Go to the Bcc field
 `<LocalLeader>c` | Go to the Cc field

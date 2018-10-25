@@ -2,7 +2,10 @@
 
 ## Anounces
 
-Since v0.2.7 Vim-mail can handle (virtually) any contact providers, this implies
++ v0.2.9 adds a mapping to switch from address from a predefined list see
+[switch from](#switch-from)
+
++ Since v0.2.7 Vim-mail can handle (virtually) any contact providers, this implies
 a few configuration changes.
 
 see
@@ -140,6 +143,16 @@ The default langs are french, english.
 This will work for any filetype as it can be usefull for many other kind of
 files.
 
+#### Switch from
+
+You can easliy from address just by hitting `<localleader>F`, to enable this
+feature, you only needto add a list of identities in you `.vimrc` :
+
+    let g:VimMailFromList = [
+        \'John doe <John@doe.foo>',
+        \'Ano nymous <ano@nymous.org'
+        \]
+
 #### Messages folds
 
 A folding method which allows you to open are close the messages of the
@@ -209,6 +222,7 @@ All mappings can be disabled by adding the following line to your vimrc:
     Mapping            | Effect
     -------------------|----------------------------------------------
     `<Localleader>a`   | Search the word before cursor as a contact
+    `<LocalLeader>F`   | Switch From address
     `<LocalLeader>f`   | Go to the From field
     `<LocalLeader>b`   | Go to the Bcc field
     `<LocalLeader>c`   | Go to the Cc field
