@@ -145,8 +145,14 @@ files.
 
 #### Switch from
 
-You can easliy from address just by hitting `<localleader>F`, to enable this
-feature, you only needto add a list of identities in you `.vimrc` :
+You can easliy from address just by hitting `<localleader>F`.
+By default vimmal will search the email addresses for a contact with the same
+full name as your unix user. You can also specify a contact (or a search
+string) with by adding the following to your vimrc :
+
+    let g:VimMailFromContact="John doe"
+
+or directly specify a list of addresses :
 
     let g:VimMailFromList = [
         \'John doe <John@doe.foo>',

@@ -43,14 +43,26 @@ function! vimmail#echo(msg,type,...)
 endfunction
 
 function! vimmail#switchFrom()
-    if(!exists("g:VimMailFromList"))
-        call vimmail#echo("g:VimMailFromList should be set to a list of "
-                    \."from addresses to use this function", "e")
-        return
-    endif
  
     let fromLine=search('^From:', 'cn')
     let curFrom = substitute(getline(fromLine), '^From:\s*\(.*\)\s*$', '\1', '')
+
+    " Generate contact list from addressbook
+    if(!exists("g:VimMailFromList"))
+        let g:VimMailFromList = []
+        let g:VimMailCompleteOnlyMail =1
+        if(exists("g:VimMailFromContact"))
+            let contact=g:VimMailFromContact
+        else
+            let contact=system('getent passwd `whoami` | cut -d ":" -f 5 | cut -d "," -f 1 | tr -d "\n"')
+        endif
+        let contacts = vimmail#contacts#CompleteAddr(0, "'".contact."'")
+        for entry in contacts
+            if entry.kind != 'Q'
+                let g:VimMailFromList += [entry.word]
+            endif
+        endfor
+    endif
 
     let newPos = (index(g:VimMailFromList, curFrom)+1)%len(g:VimMailFromList)
     let newFrom = g:VimMailFromList[newPos]
