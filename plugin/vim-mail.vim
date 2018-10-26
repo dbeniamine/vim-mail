@@ -10,6 +10,7 @@ endif
 let s:save_cpo = &cpo
 set cpo&vim
 
+let g:VimMailDirectory=expand('<sfile>:p:h')."/.."
 
 " Toggle spelllang
 if !exists("g:VimMailDoNotMap")

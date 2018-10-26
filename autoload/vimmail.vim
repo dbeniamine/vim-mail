@@ -54,7 +54,7 @@ function! vimmail#switchFrom()
         if(exists("g:VimMailFromContact"))
             let contact=g:VimMailFromContact
         else
-            let contact=system('getent passwd `whoami` | cut -d ":" -f 5 | cut -d "," -f 1 | tr -d "\n"')
+            let contact=system(g:VimMailDirectory."/plugin/getfullname.sh")
         endif
         let contacts = vimmail#contacts#CompleteAddr(0, "'".contact."'")
         for entry in contacts
