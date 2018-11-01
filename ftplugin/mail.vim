@@ -67,18 +67,18 @@ endif
 
 " Start position {{{2
 " Remove quoted signatures
-if g:VimMailStartFlags =~ "r"
+if g:VimMailStartFlags =~# "r"
     call VimMailKillQuotedSig()
 endif
 
 " Start mode
-if g:VimMailStartFlags =~ "o"
+if g:VimMailStartFlags =~# "o"
     let s:StartMode='o'
-elseif g:VimMailStartFlags =~ "O"
+elseif g:VimMailStartFlags =~# "O"
     let s:StartMode='O'
-elseif g:VimMailStartFlags =~ "A"
+elseif g:VimMailStartFlags =~# "A"
     let s:StartMode='A'
-elseif g:VimMailStartFlags =~ "W"
+elseif g:VimMailStartFlags =~# "W"
     let s:StartMode='W'
 else
     let s:StartMode=''
@@ -110,33 +110,36 @@ endfunction
 
 " Start pattern
 let pos=IntelligentStartPos()
-if g:VimMailStartFlags =~ "I" && pos !=0
+if g:VimMailStartFlags =~# "I" && pos !=0
     if pos > 0
         call StartTop()
     else
         call StartBottom()
     endif
-elseif g:VimMailStartFlags =~ "t"
+elseif g:VimMailStartFlags =~# "t"
         call StartTop()
-elseif g:VimMailStartFlags =~ "b"
+elseif g:VimMailStartFlags =~# "b"
     call StartBottom()
-elseif g:VimMailStartFlags =~ "F"
+elseif g:VimMailStartFlags =~# "F"
     let s:StartPos='/^From'
-elseif g:VimMailStartFlags =~ "T"
+elseif g:VimMailStartFlags =~# "T"
     let s:StartPos='/^To'
-elseif g:VimMailStartFlags =~ "C"
+elseif g:VimMailStartFlags =~# "C"
     let s:StartPos='/^Cc'
-elseif g:VimMailStartFlags =~ "B"
+elseif g:VimMailStartFlags =~# "B"
     let s:StartPos='/^Bcc'
-elseif g:VimMailStartFlags =~ "S"
+elseif g:VimMailStartFlags =~# "S"
     let s:StartPos='/^Subject'
 endif
 
 " Place cursor
 " Insert mode
 let cmd='au BufWinEnter *mutt-* call VimMailGoto(s:StartPos,s:StartMode)'
-if g:VimMailStartFlags =~ "i"
+if g:VimMailStartFlags =~# "i"
     let cmd.=' | :start'
+    if g:VimMailStartFlags =~# "A"
+        let cmd.="!"
+    endif
 endif
 execute cmd
 
