@@ -105,8 +105,7 @@ Flag | Meaning
 `O`  | Add new line before cursor
 `A`  | Place cursor at the end of the line
 `W`  | Start on second word (a.k.a first address of field / word of subject)
-`I`  | Intelligent start: If two replies, start above or below, as the last
-     | replier, else default to other flags
+`I`  | Intelligent start: If two replies, start above or below, as the last replier, else default to other flags
 `t`  | top (Right after headers)
 `b`  | Bottom (After last message)
 `F`  | From field
