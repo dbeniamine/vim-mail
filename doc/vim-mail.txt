@@ -113,7 +113,7 @@ You can do somthing more complex for instance :
     let g:VimMailStartFlags={
         \'blank': 'TAi',
         \'nosubject': 'SAi',
-        \default' : "boi"}
+        \'default' : "boi"}
 
 Notes
 
