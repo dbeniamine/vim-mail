@@ -2,8 +2,13 @@
 
 ## Anounces
 
++ v0.3 provides the possibility to set startflags depending on the contents of
+the mail, see [issue #6](https://gitlab.com/dbeniamine/vim-mail/issues/6) and
+[start position](#cursor-initial-position).
+
+
 + v0.2.9 adds a mapping to switch from address from a predefined list see
-[switch from](#switch-from)
+[switch from](#switch-from).
 
 + Since v0.2.7 Vim-mail can handle (virtually) any contact providers, this implies
 a few configuration changes.
@@ -110,16 +115,39 @@ Flag | Meaning
 `B`  | Bcc field
 `S`  | Subject field
 
+The flags can be set globally or by type of mail using the variable
+VimMail detects 4 types of mail :
+
+Type        | When
+------------|------
+`blank`     | `To:` field is empty
+`nosubject` | `To:` field is not empty but `Subject:` is
+`new`       | Neither `To:` or `Subject:` is empty and there is no quote
+`reply`     | Neither `To:` or `Subject:` is empty and there is a quote
+
 ##### Examples
 
 Adding the following line to your vimrc will make you start at the end of
-the subject line:
+the subject line when subject is empy:
 
-    let g:VimMailStartFlags="SAi"
+```viml
+    let g:VimMailStartFlags={'nosubject' :"SAi" }
+```
 
-Or if you want to start at the end of the mail:
+You can do somthing more complex for instance :
 
-    let g:VimMailStartFlags="boi"
+```viml
+    let g:VimMailStartFlags={
+        \'blank': 'TAi',
+        \'nosubject': 'SAi',
+        \default' : "boi"}
+```
+
+*Notes*:
+
++ `default` key is special, in the above case it means either `new` or `reply`.
++ For retro compatibility with version 0.2.x, `let g:VimMailStartFlags='toi'` is
+the same as `let g:VimMailStartFlags = { 'default': 'toi'}`.
 
 #### Easy spelllang switch
 
