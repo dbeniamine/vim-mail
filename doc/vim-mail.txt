@@ -7,6 +7,9 @@ combination with [CheckAttach](https://github.com/chrisbra/CheckAttach).
 ===============================================================================
 Anounces                                                  *VimMail-Announces* ~
 
++ v0.3.1 adds a contact provider for mu-cfind see |VimMail-mu-configuration|
+and the ability to combine several contacts providers
+
 + v0.3 provides the possibility to set startflags depending on the contents of
 the mail, see issue #6 (https://gitlab.com/dbeniamine/vim-mail/issues/6) and
 |VimMail-start-position|.
@@ -27,9 +30,13 @@ This plugin provides the following features
 
 Contact completion                                       *VimMail-Completion* ~
 
-The contact completion can handled virtually any address book management
-command, currently only `pc_query` is officially supported see
-|VimMail-address-book-configuration| and |VimMail-adding-a-contact-provider|.
+The following providers are currently supported :
+
++ `pc_query` (pycard)
++ `khard`
++ `mu` (maildir-utils, requires specific configuration see |VimMail-mu-configuration|)
+
+see |VimMail-address-book-configuration| and |VimMail-adding-a-contact-provider|.
 
 To search your address book from vim:
 
@@ -249,13 +256,13 @@ The following providers are currently supported :
 + `khard`
 + `mu` (maildir-utils, requires specific configuration see |VimMail-mu-configuration|)
 
-You can set your provider using:
+You can set one or several providers using:
 >
-    let g:VimMailContactsProvider='pc_query'
->
+    let g:VimMailContactsProvider=['pc_query', 'mu']
+
 You can also change query and sync commandsby adding the following to your
 vimrc (adapting the commands) :
-
+>
     if(!exists("g:VimMailContactsCommands"))
         let g:VimMailContactsCommands = {}
     endif

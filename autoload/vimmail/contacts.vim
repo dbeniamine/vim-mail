@@ -4,8 +4,15 @@
 " Website:     http://github.com/dbeniamine/vim-mail.vim
 
 if(!exists("g:VimMailContactsProvider"))
-    let g:VimMailContactsProvider = "pc_query"
+    let g:VimMailContactsProvider = ["pc_query"]
 endif
+
+try
+    call join(g:VimMailContactsProvider, ' ')
+catch /^Vim\%((\a\+)\)\=:E714/
+    " Retro compatibility
+    let g:VimMailContactsProvider = [g:VimMailContactsProvider]
+endtry
 
 
 if(!exists("g:VimMailContactsCommands"))
@@ -16,9 +23,9 @@ if(!exists('s:scriptdir'))
     let s:scriptdir=expand('<sfile>:h:p')
 endif
 
-function! s:CheckContactProvider()
-    if(!filereadable(s:scriptdir.'/contacts/'.g:VimMailContactsProvider.'.vim'))
-        call vimmail#echo("Unsupported provider : '".g:VimMailContactsProvider."'",
+function! s:CheckContactProvider(provider)
+    if(!filereadable(s:scriptdir.'/contacts/'.a:provider.'.vim'))
+        call vimmail#echo("Unsupported provider : '".a:provider."'",
                     \"e")
         return 0
     endif
@@ -26,26 +33,42 @@ function! s:CheckContactProvider()
 endfunction
 
 function! vimmail#contacts#sync()
-    if(!s:CheckContactProvider())
-        return
-    endif
-    call function('vimmail#contacts#'.g:VimMailContactsProvider.'#sync')()
+    for provider in g:VimMailContactsProvider
+        if(s:CheckContactProvider(provider))
+            call function('vimmail#contacts#'.provider.'#sync')()
+        endif
+    endfor
 endfunction
 
 " Complete function
 function! vimmail#contacts#CompleteAddr(findstart, base)
-    if(!s:CheckContactProvider())
-        return
-    endif
-    let records=function('vimmail#contacts#'.g:VimMailContactsProvider.'#complete')
-                \(a:findstart, a:base)
-    if(!a:findstart && ! exists("g:VimMailDoNotAppendQueryToResults"))
-        " Append the query to the records
-        let l:item={}
-        let l:item.word=a:base
-        let l:item.kind='Q'
-        let l:item.info="query: ".a:base
-        call add(records, item)
+    if(a:findstart) "first call {{{3
+        return vimmail#contacts#startComplete()
+    else "Find complete {{{3
+        let records=[]
+        let records_dic = {}
+        for provider in g:VimMailContactsProvider
+            if(s:CheckContactProvider(provider))
+                let sub_records = function('vimmail#contacts#'.provider.'#complete')
+                        \(a:findstart, a:base)
+                for rec in sub_records
+                    if(!has_key(records_dic, rec.word))
+                        let records_dic[rec.word]=1
+                        let rec.info.="\nProvider: ".provider
+                        call add(records, rec)
+                    endif
+                endfor
+            endif
+        endfor
+        if(!a:findstart && ! exists("g:VimMailDoNotAppendQueryToResults"))
+            " Append the query to the records
+            let l:item={}
+            let l:item.word=a:base
+            let l:item.kind='Q'
+            let l:item.info="query: ".a:base
+            call add(records, item)
+        endif
+        " TODO : remove duplicates
     endif
     return records
 endfunction

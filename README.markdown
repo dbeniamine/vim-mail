@@ -52,9 +52,13 @@ This plugin provides the following features
 
 ### Contact completion
 
-The contact completion can handled virtually any address book management
-command, currently only `pc_query` is officially supported see [address book
-configuration](#address-book-configuration) and
+The following providers are currently supported :
+
++ `pc_query` (pycard)
++ `khard`
++ `mu` (maildir-utils, requires specific [configuration](#mu-configuration))
+
+see [address book configuration](#address-book-configuration) and
 [Adding a contact provider](adding-a-contact-provider).
 
 To search your address book from vim:
@@ -267,10 +271,10 @@ All mappings can be disabled by adding the following line to your vimrc:
     `<LocalLeader>r3`  | Go to the third message of the conversation
     `<LocalLeader>r4`  | Go to the fourth message of the conversation
     `<LocalLeader>S`   | Go to your signature
-    `<LocalLeader>kqs` | Kill Quoted Signatures
 
 ## CONFIGURATION
 
+    `<LocalLeader>kqs` | Kill Quoted Signatures
 ### Address book configuration
 
 The following providers are currently supported :
@@ -279,9 +283,9 @@ The following providers are currently supported :
 + `khard`
 + `mu` (maildir-utils, requires specific [configuration](#mu-configuration))
 
-You can set your provider using:
+You can set one or several providers using:
 
-    let g:VimMailContactsProvider='pc_query'
+    let g:VimMailContactsProvider=['pc_query', 'mu']
 
 You can also change query and sync commandsby adding the following to your
 vimrc (adapting the commands) :
