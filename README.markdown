@@ -273,8 +273,13 @@ All mappings can be disabled by adding the following line to your vimrc:
 
 ### Address book configuration
 
-Currently only `pc_query` (default) and `khard` are supported. You can set your
-provider using
+The following providers are currently supported :
+
++ `pc_query` (pycard)
++ `khard`
++ `mu` (maildir-utils, requires specific [configuration](#mu-configuration))
+
+You can set your provider using:
 
     let g:VimMailContactsProvider='pc_query'
 
@@ -302,6 +307,34 @@ By default, the contact completion appends the query to the result list, you
 can disable this feature:
 
     let g:VimMailDoNotAppendQueryToResults
+
+#### Mu configuration
+
+Mu stores an email index by account, to use mu contact completion, you need to
+tel for each email address two settings :
+
++ the mu home (where mu index is stored)
++ the maildir directorory (where the emails are stored, only if you want to be
+able to sync contacts)
+
+This can be done via the `g:VimMailContactsCommands` dictionnary, there is an
+example :
+    
+    let g:VimMailContactsCommands={'mu' :
+            \{ 'query' : "mu cfind",
+                \'sync': "mu index",
+                \'config': {
+                    \'sommeaddr': {
+                        \'home': '$HOME/mu/someaccount',
+                        \'maildir': '$HOME/mail/someaccount',
+                    \},
+                    \'default': {
+                        \'home': '$HOME/mu/otheraccount',
+                        \'maildir': '$HOME/mail/otheraccount',
+                    \}
+                \}
+            \}
+        \}
 
 ### Spell
 
