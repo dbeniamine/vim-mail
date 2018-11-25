@@ -7,7 +7,7 @@
 if exists("g:loaded_VimMail")
     finish
 endif
-let g:loaded_VimMail=0.3
+let g:loaded_VimMail=0.3.1
 
 " Save context {{{1
 let s:save_cpo = &cpo
