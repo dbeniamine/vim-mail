@@ -6,10 +6,12 @@ function! vimmail#sendmail#Sendmail()
     if exists("g:VimMailSendCmd")
         let l:cmd=g:VimMailSendCmd
     else
-        if executable("mutt")
+        if executable("neomutt")
+            let l:cmd=":!neomutt -a %"
+        elseif executable("mutt")
             let l:cmd=":!mutt -a %"
         else
-            echoerr "No mutt or custom g:VimMailSendCmd found."
+            echoerr "No mutt, neomutt or custom g:VimMailSendCmd found."
             return
         endif
     endif
