@@ -7,6 +7,9 @@
 if !exists("g:VimMailArgsByFiletype")
     let g:VimMailArgsByFiletype={"mail" : "-H"}
 endif
+if !exists("g:VimMailArgsDefault")
+    let g:VimMailArgsDefault="-a"
+endif
 
 function! vimmail#sendmail#Sendmail()
     if exists("g:VimMailSendCmd")
@@ -26,7 +29,7 @@ function! vimmail#sendmail#Sendmail()
         if has_key(g:VimMailArgsByFiletype, &filetype)
             let l:mailerarg=g:VimMailArgsByFiletype[&filetype]
         else
-            let l:mailerarg="-a"
+            let l:mailerarg=g:VimMailArgsDefault
         endif
 
         let l:cmd=":!" . l:mailerbin . " " . l:mailerarg . " %"
