@@ -378,7 +378,8 @@ values):
 
 If you are not using mutt, you can something like that to your vimrc:
 
-    let g:VimMailSendCmd=":! my_binary --args %"
+    " Send mail using thunderbird
+    let g:VimMailSendCmd=":!thunderbird -compose attachment=".expand("%:p")
 
 **WARNING**: this setting will be replaced in the next version
 
