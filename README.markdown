@@ -4,6 +4,12 @@
 
 ## Anounces
 
++ In the next release v1.0.0, the `g:VimMailSendCmd` will be deprecated,
+see [Mail client](#mail-client)
+
++ Since v0.3.2 it is possible to change the flags used for sendmail depending
+on the current filetype see [Mail client](#mail-client)
+
 + v0.3 provides the possibility to set startflags depending on the contents of
 the mail, see [issue #6](https://gitlab.com/dbeniamine/vim-mail/issues/6) and
 [start position](#cursor-initial-position).
@@ -361,10 +367,20 @@ vimrc something like:
 
     let g:VimMailClient="/path/to/your/launcher"
 
-If you are not using mutt, or want to customize the send mail command, just
-add something like that to your vimrc (this is the default command):
+If you are using mutt or neomutt and want to set the default arguments used by
+vim-mail you can use one of the following (the examples are the defaults
+values):
 
-    let g:VimMailSendCmd=":! mutt -a %"
+    " Default args
+    let g:VimMailArgsDefault="-a"
+    " Args by filtype
+    let g:VimMailArgsByFiletype={"mail" : "-H"}
+
+If you are not using mutt, you can something like that to your vimrc:
+
+    let g:VimMailSendCmd=":! my_binary --args %"
+
+**WARNING**: this setting will be replaced in the next version
 
 ## Adding a contact provider
 
