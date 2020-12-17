@@ -7,13 +7,15 @@ function! vimmail#sendmail#Sendmail()
         let l:cmd=g:VimMailSendCmd
     else
         if executable("neomutt")
-            let l:cmd=":!neomutt -a %"
+            let l:mailerbin="neomutt"
         elseif executable("mutt")
-            let l:cmd=":!mutt -a %"
+            let l:mailerbin="mutt"
         else
             echoerr "No mutt, neomutt or custom g:VimMailSendCmd found."
             return
         endif
+
+        let l:cmd=":!" . l:mailerbin . " -a %"
     endif
     execute l:cmd
 endfunction
