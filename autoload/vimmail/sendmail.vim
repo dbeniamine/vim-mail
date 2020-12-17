@@ -2,6 +2,12 @@
 " License:     Gpl v3.0
 " Website:     http://github.com/dbeniamine/vim-mail.vim
 
+" Assigns arguments to the mail program depending on the filetype of the
+" buffer.
+if !exists("g:VimMailArgsByFiletype")
+    let g:VimMailArgsByFiletype={"mail" : "-H"}
+endif
+
 function! vimmail#sendmail#Sendmail()
     if exists("g:VimMailSendCmd")
         let l:cmd=g:VimMailSendCmd
@@ -15,7 +21,15 @@ function! vimmail#sendmail#Sendmail()
             return
         endif
 
-        let l:cmd=":!" . l:mailerbin . " -a %"
+        " If there are filetype specific settings, use them, otherwise use the
+        " default.
+        if has_key(g:VimMailArgsByFiletype, &filetype)
+            let l:mailerarg=g:VimMailArgsByFiletype[&filetype]
+        else
+            let l:mailerarg="-a"
+        endif
+
+        let l:cmd=":!" . l:mailerbin . " " . l:mailerarg . " %"
     endif
     execute l:cmd
 endfunction
