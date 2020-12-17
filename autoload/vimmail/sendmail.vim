@@ -32,7 +32,18 @@ function! vimmail#sendmail#Sendmail()
             let l:mailerarg=g:VimMailArgsDefault
         endif
 
-        let l:cmd=":!" . l:mailerbin . " " . l:mailerarg . " %"
+        if has('nvim') || has ('gui_running')
+            " A difference between neovim and vim is that :! does not support
+            " interactive commands and this is leads to a complaint of
+            " (neo)mutt of not sending empty mails.
+            " Although the reasons differ, also gvim has troubles running mutt
+            " within itself using the bang command.
+            let l:cmdprefix=":terminal "
+        else
+            let l:cmdprefix=":!"
+        endif
+
+        let l:cmd=l:cmdprefix . l:mailerbin . " " . l:mailerarg . " %"
     endif
     execute l:cmd
 endfunction
