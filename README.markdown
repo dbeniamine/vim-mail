@@ -362,26 +362,36 @@ To disable message folds, add the following line to your vimrc:
 
 ### Mail Client
 
+#### Launching mail client
+
 You can set the mail client command to your launcher script by adding to your
 vimrc something like:
 
     let g:VimMailClient="/path/to/your/launcher"
 
-If you are using mutt or neomutt and want to set the default arguments used by
-vim-mail you can use one of the following (the examples are the defaults
-values):
 
-    " Default args
-    let g:VimMailArgsDefault="-a %"
-    " Args by filtype
+#### Sending mails
+
+By default, this plugin searches for neomutt and mutt as client and treats the
+file as attachment to the mail unless it has filetype `mail`, in which case it
+uses the file as a draft.
+
+This behavior can be customized with the following variables, where the example
+shows the default values:
+
+    " If does not exist then neomutt or mutt is used
+    let g:VimMailBin="..."
+    " Arguments to g:VimMailBin specific to the filetype
     let g:VimMailArgsByFiletype={"mail" : "-H %"}
+    " Arguments to g:VimMailBin if filetype is not known to g:VimMailArgsByFiletype
+    let g:VimMailArgsDefault="-a %"
 
-If you are not using mutt, you can something like that to your vimrc:
+You could change this behavior as follows to use thunderbird:
 
-    " Send mail using thunderbird
-    let g:VimMailSendCmd=":!thunderbird -compose attachment=".expand("%:p")
+    let g:VimMailBin="thunderbird"
+    let g:VimMailArgsDefault="-compose attachment=%:p"
+    let g:VimMailArgsByFiletype={"mail" : "-compose body=%:p"}
 
-**WARNING**: this setting will be replaced in the next version
 
 ## Adding a contact provider
 
