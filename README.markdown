@@ -386,11 +386,17 @@ shows the default values:
     " Arguments to g:VimMailBin if filetype is not known to g:VimMailArgsByFiletype
     let g:VimMailArgsDefault="-a %"
 
-You could change this behavior as follows to use thunderbird:
+If you run traditional vim then the mail program is launched by `:!`, but on
+neovim and gvim it is launched by `:terminal`. (Note that neovim has no
+interactive `:!` and gvim has troubles displaying mutt via `:!`.) However, you
+can overrule this behavior by simply setting `g:VimMailUseTerminal`.
+
+The following settings could be used for thunderbird as mail client:
 
     let g:VimMailBin="thunderbird"
     let g:VimMailArgsDefault="-compose attachment=%:p"
     let g:VimMailArgsByFiletype={"mail" : "-compose body=%:p"}
+    let g:VimMailUseTerminal=0
 
 
 ## Adding a contact provider
