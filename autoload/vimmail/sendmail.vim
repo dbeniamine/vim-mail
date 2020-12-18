@@ -5,10 +5,10 @@
 " Assigns arguments to the mail program depending on the filetype of the
 " buffer.
 if !exists("g:VimMailArgsByFiletype")
-    let g:VimMailArgsByFiletype={"mail" : "-H"}
+    let g:VimMailArgsByFiletype={"mail" : "-H %"}
 endif
 if !exists("g:VimMailArgsDefault")
-    let g:VimMailArgsDefault="-a"
+    let g:VimMailArgsDefault="-a %"
 endif
 
 function! vimmail#sendmail#Sendmail()
@@ -43,7 +43,7 @@ function! vimmail#sendmail#Sendmail()
             let l:cmdprefix=":!"
         endif
 
-        let l:cmd=l:cmdprefix . l:mailerbin . " " . l:mailerarg . " %"
+        let l:cmd=l:cmdprefix . l:mailerbin . " " . l:mailerarg
     endif
     execute l:cmd
 endfunction

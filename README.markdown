@@ -372,9 +372,9 @@ vim-mail you can use one of the following (the examples are the defaults
 values):
 
     " Default args
-    let g:VimMailArgsDefault="-a"
+    let g:VimMailArgsDefault="-a %"
     " Args by filtype
-    let g:VimMailArgsByFiletype={"mail" : "-H"}
+    let g:VimMailArgsByFiletype={"mail" : "-H %"}
 
 If you are not using mutt, you can something like that to your vimrc:
 
