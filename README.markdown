@@ -4,8 +4,8 @@
 
 ## Anounces
 
-+ In the next release v1.0.0, the `g:VimMailSendCmd` will be deprecated,
-see [Mail client](#mail-client)
++ Since v1.0.0 the `g:VimMailSendCmd` has been replaced by a couple of
+more flexible configuration options, see [Sending mails](#sending-mails)
 
 + Since v0.3.2 it is possible to change the flags used for sendmail depending
 on the current filetype see [Mail client](#mail-client)
