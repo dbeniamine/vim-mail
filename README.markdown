@@ -395,7 +395,7 @@ The following settings could be used for thunderbird as mail client:
 
     let g:VimMailBin="thunderbird"
     let g:VimMailArgsDefault="-compose attachment=%:p"
-    let g:VimMailArgsByFiletype={"mail" : "-compose body=%:p"}
+    let g:VimMailArgsByFiletype={}
     let g:VimMailUseTerminal=0
 
 
