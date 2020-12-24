@@ -4,8 +4,8 @@
 
 ## Anounces
 
-+ In the next release v1.0.0, the `g:VimMailSendCmd` will be deprecated,
-see [Mail client](#mail-client)
++ Since v1.0.0 the `g:VimMailSendCmd` has been replaced by a couple of
+more flexible configuration options, see [Sending mails](#sending-mails)
 
 + Since v0.3.2 it is possible to change the flags used for sendmail depending
 on the current filetype see [Mail client](#mail-client)
@@ -362,26 +362,42 @@ To disable message folds, add the following line to your vimrc:
 
 ### Mail Client
 
+#### Launching mail client
+
 You can set the mail client command to your launcher script by adding to your
 vimrc something like:
 
     let g:VimMailClient="/path/to/your/launcher"
 
-If you are using mutt or neomutt and want to set the default arguments used by
-vim-mail you can use one of the following (the examples are the defaults
-values):
 
-    " Default args
-    let g:VimMailArgsDefault="-a"
-    " Args by filtype
-    let g:VimMailArgsByFiletype={"mail" : "-H"}
+#### Sending mails
 
-If you are not using mutt, you can something like that to your vimrc:
+By default, this plugin searches for neomutt and mutt as client and treats the
+file as attachment to the mail unless it has filetype `mail`, in which case it
+uses the file as a draft.
 
-    " Send mail using thunderbird
-    let g:VimMailSendCmd=":!thunderbird -compose attachment=".expand("%:p")
+This behavior can be customized with the following variables, where the example
+shows the default values:
 
-**WARNING**: this setting will be replaced in the next version
+    " If does not exist then neomutt or mutt is used
+    let g:VimMailBin="..."
+    " Arguments to g:VimMailBin specific to the filetype
+    let g:VimMailArgsByFiletype={"mail" : "-H %"}
+    " Arguments to g:VimMailBin if filetype is not known to g:VimMailArgsByFiletype
+    let g:VimMailArgsDefault="-a %"
+
+If you run traditional vim then the mail program is launched by `:!`, but on
+neovim and gvim it is launched by `:terminal`. (Note that neovim has no
+interactive `:!` and gvim has troubles displaying mutt via `:!`.) However, you
+can overrule this behavior by simply setting `g:VimMailUseTerminal`.
+
+The following settings could be used for thunderbird as mail client:
+
+    let g:VimMailBin="thunderbird"
+    let g:VimMailArgsDefault="-compose attachment=%:p"
+    let g:VimMailArgsByFiletype={}
+    let g:VimMailUseTerminal=0
+
 
 ## Adding a contact provider
 
