@@ -58,7 +58,7 @@ function! vimmail#sendmail#Sendmail()
         let l:cmdprefix=":!"
     endif
 
-    let l:cmd=l:cmdprefix . g:VimMailBin . " " . expand(l:mailerarg)
+    let l:cmd=l:cmdprefix . g:VimMailBin . " " . expandcmd(l:mailerarg)
     execute l:cmd
 endfunction
 
